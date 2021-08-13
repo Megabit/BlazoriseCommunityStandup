@@ -1,0 +1,59 @@
+﻿@page "/e-commerce"
+
+<Carousel @bind-SelectedSlide="@selectedSlide" ShowIndicators ShowControls>
+    <CarouselSlide Name="1">
+        <Image Source="img/e-commerce/gallery/carousel-01.jpg" Text="Image 1" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+    <CarouselSlide Name="2">
+        <Image Source="img/e-commerce/gallery/carousel-02.jpg" Text="Image 2" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+    <CarouselSlide Name="3">
+        <Image Source="img/e-commerce/gallery/carousel-03.jpg" Text="Image 3" Display="Display.Block" Width="Width.Is100" />
+    </CarouselSlide>
+</Carousel>
+
+<Row NoGutters Margin="Margin.Is4.FromTop">
+    <Column>
+        <Card Margin="Margin.Is2.OnX" TextAlignment="TextAlignment.Center">
+            <CardBody>
+                <Icon Name="IconName.Laptop" TextColor="TextColor.Primary" IconSize="IconSize.x3" />
+                <CardText TextColor="TextColor.Primary" TextWeight="TextWeight.Bold">Laptop</CardText>
+                <CardText TextColor="TextColor.Success">Upto 20% off</CardText>
+                <Small TextColor="TextColor.Muted">Sony, Dell, Lenovo</Small>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column>
+        <Card Margin="Margin.Is2.OnX">
+            <CardBody>
+                <Icon Name="IconName.Headset" TextColor="TextColor.Secondary" IconSize="IconSize.x3" />
+                <CardText TextColor="TextColor.Primary" TextWeight="TextWeight.Bold">Laptop</CardText>
+                <CardText TextColor="TextColor.Success">Upto 50% off</CardText>
+                <Small TextColor="TextColor.Muted">Sony, Dell, Lenovo</Small>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column>
+        <Card Margin="Margin.Is2.OnX">
+            <CardBody>
+                <Icon Name="IconName.Phone" TextColor="TextColor.Danger" IconSize="IconSize.x3" />
+                <CardText TextColor="TextColor.Primary" TextWeight="TextWeight.Bold">Laptop</CardText>
+                <CardText TextColor="TextColor.Success">Upto 30% off</CardText>
+                <Small TextColor="TextColor.Muted">Sony, Dell, Lenovo</Small>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column>
+        <Card Margin="Margin.Is2.OnX">
+            <CardBody>
+                <Icon Name="IconName.Tv" TextColor="TextColor.Success" IconSize="IconSize.x3" />
+                <CardText TextColor="TextColor.Primary" TextWeight="TextWeight.Bold">Laptop</CardText>
+                <CardText TextColor="TextColor.Success">Upto 25% off</CardText>
+                <Small TextColor="TextColor.Muted">Sony, Dell, Lenovo</Small>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
+@code{
+    string selectedSlide = "1";
+}

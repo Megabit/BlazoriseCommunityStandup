@@ -1,0 +1,96 @@
+﻿<Bar Breakpoint="Breakpoint.Desktop" Background="Background.Dark" ThemeContrast="ThemeContrast.Dark">
+    <BarBrand>
+        <BarItem>
+            <BarLink To="">
+                <BarIcon IconName="@customIcon" Display="Display.InlineBlock" />
+                E-Commerce Demo
+            </BarLink>
+        </BarItem>
+    </BarBrand>
+    <BarToggler />
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>All Pages</BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem To="signin">
+                            Sign In
+                        </BarDropdownItem>
+                        <BarDropdownItem To="signup">
+                            Sign Up
+                        </BarDropdownItem>
+                        <BarDropdownDivider />
+                        <BarDropdownItem To="checkout">
+                            Checkout Page
+                        </BarDropdownItem>
+                        <BarDropdownItem To="contact">
+                            Contact Us
+                        </BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+            <BarItem>
+                <BarLink To="#">Fashion</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarLink To="#">Supormarket</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarLink To="#">Electronics</BarLink>
+            </BarItem>
+        </BarStart>
+        <BarEnd>
+            <BarItem>
+                <Addons>
+                    <Addon AddonType="AddonType.Body">
+                        <TextEdit />
+                    </Addon>
+                    <Addon AddonType="AddonType.End">
+                        <Button Color="Color.Primary">
+                            <Icon Name="IconName.Search" />
+                        </Button>
+                    </Addon>
+                </Addons>
+            </BarItem>
+            <BarItem>
+                <Button Color="Color.Primary" Margin="Margin.Is2.FromLeft">
+                    <Icon Name="IconName.ShoppingCart" />
+                    <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute top-0 left-100 translate-middle">2</Badge>
+                </Button>
+            </BarItem>
+            <BarItem>
+                <Dropdown RightAligned>
+                    <DropdownToggle ToggleIconVisible="false" Color="Color.Secondary" Margin="Margin.Is2.FromLeft" Border="Border.RoundedCircle">
+                        <Icon Name="IconName.UserCircle" />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem>
+                            <Icon Name="IconName.UserFriends" />
+                            My Profile
+                        </DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem>
+                            <Icon Name="IconName.Bell" TextColor="TextColor.Primary" />
+                            Notifications
+                        </DropdownItem>
+                        <DropdownItem>
+                            <Icon Name="IconName.InfoCircle" TextColor="TextColor.Success" />
+                            Support
+                        </DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem>
+                            <Icon Name="IconName.Lock" TextColor="TextColor.Danger" />
+                            Logout
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </BarItem>
+        </BarEnd>
+    </BarMenu>
+</Bar>
+@code{
+    private bool uiElementsVisible = true;
+
+    RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
+}
