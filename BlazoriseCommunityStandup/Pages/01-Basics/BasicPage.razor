@@ -1,0 +1,64 @@
+﻿@page "/basic"
+
+<Row>
+    <Column>
+        <Heading Size="HeadingSize.Is1">Basic components</Heading>
+    </Column>
+</Row>
+
+<Row>
+    <Column>
+        <Card>
+            <CardHeader>
+                Buttons
+            </CardHeader>
+            <CardBody>
+                <Button Color="Color.Primary">Primary</Button>
+                <Button Color="Color.Secondary">Secondary</Button>
+                <Button Color="Color.Success">Success</Button>
+                <Button Color="Color.Danger">Danger</Button>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column>
+        <Card>
+            <CardHeader>
+                Inputs
+            </CardHeader>
+            <CardBody>
+                <Field>
+                    <FieldLabel>
+                        Basic text
+                    </FieldLabel>
+                    <FieldBody>
+                        <TextEdit />
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel>
+                        Numeric
+                    </FieldLabel>
+                    <FieldBody>
+                        <NumericEdit TValue="decimal?" />
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel>
+                        Date
+                    </FieldLabel>
+                    <FieldBody>
+                        <DateEdit TValue="DateTime?" />
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel>
+                        Time
+                    </FieldLabel>
+                    <FieldBody>
+                        <TimeEdit TValue="TimeSpan?" />
+                    </FieldBody>
+                </Field>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
