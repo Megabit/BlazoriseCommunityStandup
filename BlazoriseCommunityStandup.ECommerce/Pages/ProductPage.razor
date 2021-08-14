@@ -1,0 +1,135 @@
+﻿@page "/e-commerce/product/detail"
+
+<Container Fluid Margin="Margin.Is3.FromTop">
+    <Row>
+        <Column ColumnSize="ColumnSize.Is8.OnDesktop">
+            <Row Margin="Margin.Is3.FromBottom">
+                <Column ColumnSize="ColumnSize.Is5.OnDesktop" TextAlignment="TextAlignment.Center">
+                    <Image Source="@Product.ImageUrl" Fluid Margin="Margin.Is3.FromBottom" Text="" />
+                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is7.OnDesktop">
+                    <Heading Size="HeadingSize.Is1" Display="Display.Inline" Margin="Margin.Is2.FromRight">@Product.Name</Heading>
+                    @if ( Product.IsNew )
+                    {
+                        <Badge Color="Color.Success" Margin="Margin.Is2.FromRight">New</Badge>
+                    }
+                    @if ( Product.IsHot )
+                    {
+                        <Badge Color="Color.Danger" Margin="Margin.Is2.FromRight">Hot</Badge>
+                    }
+                    <Div Margin="Margin.Is3.FromBottom">
+                        <Rating SelectedValue="4" MaxValue="4" ReadOnly />|<Small TextColor="TextColor.Muted">42 ratings and 4 reviews</Small>
+                    </Div>
+                    <Row Margin="Margin.Is3.FromBottom">
+                        <Column ColumnSize="ColumnSize.Is3.OnTablet" TextWeight="TextWeight.Bold">
+                            Availability
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is9.OnTablet">
+                            In stock
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is3.OnTablet" TextWeight="TextWeight.Bold">
+                            Sold by
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is9.OnTablet">
+                            Authorised Store
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is3.OnTablet" TextWeight="TextWeight.Bold">
+                            Size
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is9.OnTablet">
+                            <RadioGroup TValue="string" Name="Size">
+                                <Radio TValue="string" Value="@("S")">S</Radio>
+                                <Radio TValue="string" Value="@("M")">M</Radio>
+                                <Radio TValue="string" Value="@("L")">L</Radio>
+                                <Radio TValue="string" Value="@("XL")">XL</Radio>
+                                <Radio TValue="string" Value="@("XXL")">XXL</Radio>
+                            </RadioGroup>
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is3.OnTablet" TextWeight="TextWeight.Bold">
+                            Color
+                        </Column>
+                        <Column ColumnSize="ColumnSize.Is9.OnTablet">
+                            <Button Color="Color.Primary" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                            <Button Color="Color.Success" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                            <Button Color="Color.Danger" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                            <Button Color="Color.Warning" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                            <Button Color="Color.Info" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                            <Button Color="Color.Dark" Size="Size.Small" Padding="Padding.Is2" Margin="Margin.Is2.FromRight"></Button>
+                        </Column>
+                    </Row>
+                    <Div Margin="Margin.Is3.FromBottom">
+                        <Text TextWeight="TextWeight.Bold" Margin="Margin.Is2.FromRight">$@FinalPrice</Text>
+                        <Small TextColor="TextColor.Muted" Margin="Margin.Is2.FromRight">
+                            <del>$@Product.Price</del>
+                        </Small>
+                        @if ( Product.Discount != null )
+                        {
+                            <Span Background="Background.Warning" Border="Border.Rounded" Margin="Margin.Is2.FromRight" Padding="Padding.Is1">
+                                @($"-{Product.Discount}%")
+                            </Span>
+                        }
+                    </Div>
+                    <Div Margin="Margin.Is3.FromBottom">
+                        <Div Display="Display.Inline" Float="Float.Left" Margin="Margin.Is2.FromRight">
+                            <Addons Size="Size.Small">
+                                <Addon AddonType="AddonType.Start">
+                                    <Button Color="Color.Primary">
+                                        <Icon Name="IconName.MinusSquare" />
+                                    </Button>
+                                </Addon>
+                                <Addon AddonType="AddonType.Body">
+                                    <NumericEdit TValue="int" ShowStepButtons="false" />
+                                </Addon>
+                                <Addon AddonType="AddonType.End">
+                                    <Button Color="Color.Primary">
+                                        <Icon Name="IconName.PlusSquare" />
+                                    </Button>
+                                </Addon>
+                            </Addons>
+                        </Div>
+                        <Button Color="Color.Primary" Size="Size.Small" Margin="Margin.Is2.FromRight">
+                            <Icon Name="IconName.CartPlus" />
+                            Add to cart
+                        </Button>
+                        <Button Color="Color.Warning" Size="Size.Small" Margin="Margin.Is2.FromRight">
+                            <Icon Name="IconName.ShoppingCart" />
+                            Buy now
+                        </Button>
+                        <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
+                            <Icon Name="IconName.Heart" />
+                        </Button>
+                    </Div>
+                    <Div>
+                        <Paragraph TextWeight="TextWeight.Bold" Margin="Margin.Is2.FromBottom">Product Highlights</Paragraph>
+                        <Paragraph>
+                            @Product.Description
+                        </Paragraph>
+                    </Div>
+                </Column>
+            </Row>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+            <Card>
+                <CardHeader>
+                    FEATURED PRODUCTS
+                </CardHeader>
+                <CardBody>
+                    @foreach ( var featuredProduct in AppState.Products.Take( 4 ) )
+                    {
+                        <FeaturedProductCard Product="@featuredProduct" />
+                    }
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+</Container>
+@code{
+    private int FinalPrice => Product.GetFinalPrice();
+
+    private Product Product => AppState.Products[0];
+
+    [CascadingParameter] private AppState AppState { get; set; }
+}

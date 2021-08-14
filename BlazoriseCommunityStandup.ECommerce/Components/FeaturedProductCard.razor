@@ -1,0 +1,21 @@
+﻿<Row Margin="Margin.Is3.FromBottom">
+    <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+        <Image Source="@Product.ImageUrl" Fluid Text="..." />
+    </Column>
+    <Column ColumnSize="ColumnSize.Is5.OnDesktop">
+        <Heading Size="HeadingSize.Is6" Margin="Margin.Is1.FromBottom" TextTransform="TextTransform.Capitalize">
+            <Blazorise.Link To="e-commerce/product/detail">@Product.Name</Blazorise.Link>
+        </Heading>
+        <Rating SelectedValue="4" MaxValue="4" ReadOnly Margin="Margin.Is2.FromBottom" Display="Display.Block" />
+        <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>
+        <Small TextColor="TextColor.Muted" Margin="Margin.Is2.FromLeft">
+            <del>$@Product.Price</del>
+        </Small>
+    </Column>
+</Row>
+
+@code {
+    protected int FinalPrice => Product.GetFinalPrice();
+
+    [Parameter] public Product Product { get; set; }
+}
