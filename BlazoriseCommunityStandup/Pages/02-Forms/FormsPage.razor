@@ -1,4 +1,5 @@
 ﻿@page "/form"
+@using System.ComponentModel.DataAnnotations
 
 <Row>
     <Column>
@@ -8,6 +9,196 @@
 
 <Row>
     <Column>
+        <Card>
+            <CardHeader>
+                Registration Form
+            </CardHeader>
+            <CardBody>
+                <Validations @ref="validationsRef" Model="newClient" ValidateOnLoad="false">
 
+                    <Validation AsyncValidator="ValidateIdentificationAsync">
+                        <Field>
+                            <FieldLabel>Identification</FieldLabel>
+                            <FieldBody>
+                                <NumericEdit Placeholder="Identification..." @bind-Value="newClient.Identification" />
+                            </FieldBody>
+                            @if ( validatingIdentification )
+                            {
+                                <FieldHelp>Validating your identification, please wait...</FieldHelp>
+                            }
+                        </Field>
+                    </Validation>
+
+                    <Fields>
+                        <Validation>
+                            <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                                <FieldLabel>Name</FieldLabel>
+                                <TextEdit Placeholder="Name..." @bind-Text="newClient.Name" />
+                            </Field>
+                        </Validation>
+
+                        <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                            <FieldLabel>Last Name</FieldLabel>
+                            <TextEdit Placeholder="Last Name..." @bind-Text="newClient.LastName" />
+                        </Field>
+                    </Fields>
+                    <Validation Validator="ValidationRule.IsEmail">
+                        <Field>
+                            <FieldLabel>Email</FieldLabel>
+                            <FieldBody>
+                                <TextEdit Placeholder="Email..." @bind-Text="newClient.Email">
+                                    <Feedback>
+                                        <ValidationError>Please provide a valid email.</ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </FieldBody>
+                        </Field>
+                    </Validation>
+
+                    <Fields>
+                        <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                            <FieldLabel>Gender</FieldLabel>
+                            <Select TValue="Gender" @bind-SelectedValue="newClient.Gender">
+                                <SelectItem TValue="Gender" Value="Gender.Male">Male</SelectItem>
+                                <SelectItem TValue="Gender" Value="Gender.Female">Female</SelectItem>
+                            </Select>
+                        </Field>
+
+                        <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                            <FieldLabel>Date Of Birth</FieldLabel>
+                            <FieldBody>
+                                <DateEdit TValue="DateTime?" @bind-Date="newClient.DateOfBirth" />
+                            </FieldBody>
+                        </Field>
+                    </Fields>
+
+                    <Validation UsePattern="true">
+                        <Field>
+                            <FieldLabel>Branch</FieldLabel>
+                            <TextEdit Pattern="[A-Za-z]{3}">
+                                <Feedback>
+                                    <ValidationError>Invalid branch.</ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+                    <Field>
+                        <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
+                        <FieldBody>
+                            <Check @bind-Checked="newClient.AcceptedTermsAndConditions"></Check>
+                        </FieldBody>
+                    </Field>
+
+                    <Blazorise.ValidationSummary Label="Please correct the following errors:" />
+                </Validations>
+            </CardBody>
+            <CardFooter>
+
+                <Button Color="Color.Primary" Clicked="@Submit">Submit</Button>
+            </CardFooter>
+        </Card>
     </Column>
 </Row>
+
+<Modal @ref="modalSuccessRef">
+    <ModalContent Size="ModalSize.Small" Centered="true">
+        <ModalBody>
+            <Alert Visible="true" Color="Color.Success">
+                <AlertMessage><Heading Size="HeadingSize.Is3" TextAlignment="TextAlignment.Center"> Registered successfully! </Heading></AlertMessage>
+                <AlertDescription>
+                    <Row>
+                        <Column TextAlignment="TextAlignment.Center">
+                            <Blazorise.Icons.FontAwesome.Icon Name="IconName.CheckCircle" IconSize="IconSize.x4" TextColor="TextColor.Success"></Blazorise.Icons.FontAwesome.Icon>
+                        </Column>
+                    </Row>
+                </AlertDescription>
+            </Alert>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideSuccessModal">Close</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    private Validations validationsRef;
+    private Modal modalSuccessRef;
+    private Client newClient = new();
+    private bool validatingIdentification = false;
+
+    private Task Submit()
+    {
+        //Run validations // Use snippets to show adding different type of validations
+        //1. Data Annotations
+        //Requirement Validations + set Model
+        //Example : AcceptedTermsAndConditions
+        //2. Using Validator and inbuilt provided rule // Show inbuilt rules
+        //Example : Email
+        //3. Using Pattern
+        //Example : Branch
+        //4. Using Async Validation
+        //Example : Name
+
+        if ( validationsRef.ValidateAll() )
+        {
+            //Success
+            ShowSuccessModal();
+        }
+        return Task.CompletedTask;
+    }
+
+    public class Client
+    {
+        public long Identification { get; set; }
+        [Required]
+        [MinLength( 1 )]
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public Gender Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        [Range( typeof( bool ), "true", "true", ErrorMessage = "Make sure that you've read the terms and conditions and that you agree to them." )]
+        public bool AcceptedTermsAndConditions { get; set; }
+
+        public string Branch { get; set; }
+    }
+
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
+    public class Address
+    {
+        public string MyProperty { get; set; }
+    }
+
+
+    private void ShowSuccessModal()
+    {
+        modalSuccessRef.Show();
+    }
+
+    private void HideSuccessModal()
+    {
+        modalSuccessRef.Hide();
+    }
+
+    async Task ValidateIdentificationAsync( ValidatorEventArgs e, System.Threading.CancellationToken cancellationToken )
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        validatingIdentification = true;
+        await InvokeAsync( StateHasChanged );
+        // some long running task or call to the rest API
+        await Task.Delay( 1500 );
+
+        e.ErrorText = "Please provide a valid Identification";
+        e.Status = Convert.ToInt64( e.Value ) < 100000
+            ? ValidationStatus.Error
+            : ValidationStatus.Success;
+        validatingIdentification = false;
+        await InvokeAsync( StateHasChanged );
+    }
+}
