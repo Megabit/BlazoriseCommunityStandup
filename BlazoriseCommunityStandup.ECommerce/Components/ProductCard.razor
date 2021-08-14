@@ -1,4 +1,6 @@
-﻿<Card Margin="Margin.Is3.FromBottom">
+﻿@inherits BaseProductCard
+
+<Card Margin="Margin.Is3.FromBottom">
     <CardImage Source="@Product.ImageUrl" alt="..." />
     @if ( Product.IsNew )
     {
@@ -38,35 +40,3 @@
         </Buttons>
     </CardBody>
 </Card>
-
-<Snackbar @ref="snackbarAddToCartRef" Color="SnackbarColor.Success">
-    <SnackbarBody>
-        Added @Product.Name to your cart! <CloseButton />
-    </SnackbarBody>
-</Snackbar>
-
-<Snackbar @ref="snackbarAddToWishListRef" Color="SnackbarColor.Primary">
-    <SnackbarBody>
-        Added @Product.Name to your Wish List! <CloseButton />
-    </SnackbarBody>
-</Snackbar>
-
-
-@code{
-    private Snackbar snackbarAddToCartRef;
-    private Snackbar snackbarAddToWishListRef;
-
-    [Parameter] public Product Product { get; set; }
-
-    int FinalPrice => Product.GetFinalPrice();
-
-    private void AddToCart()
-    {
-        snackbarAddToCartRef.Show();
-    }
-
-    private void AddToWishList()
-    {
-        snackbarAddToWishListRef.Show();
-    }
-}
