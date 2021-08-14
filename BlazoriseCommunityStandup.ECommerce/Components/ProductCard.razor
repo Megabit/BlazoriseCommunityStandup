@@ -16,7 +16,7 @@
     }
     <CardBody>
         <CardSubtitle Margin="Margin.Is2.FromBottom">
-            <Blazorise.Link To="/e-commerce/product/detail">Great product name goes here</Blazorise.Link>
+            <Blazorise.Link To="/e-commerce/product/detail">@Product.Name</Blazorise.Link>
         </CardSubtitle>
         <Div Margin="Margin.Is2.OnY">
             <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>
@@ -26,7 +26,7 @@
                     <del>$@Product.Price</del>
                 </Small>
             }
-            <Rating SelectedValue="4" MaxValue="4" ReadOnly Margin="Margin.Is2.FromLeft" />
+            <Rating SelectedValue="4" MaxValue="4" ReadOnly Margin="Margin.Is2.FromLeft" />           
         </Div>
         <Buttons Width="Width.Is100" Size="Size.Small">
             <Button Color="Color.Primary" title="Add to cart">

@@ -6,7 +6,7 @@
         <Column ColumnSize="ColumnSize.Is6">
             <CardBody>
                 <CardSubtitle Margin="Margin.Is2.FromRight" Display="Display.Inline">
-                    <Blazorise.Link To="/e-commerce/product/detail">Great product name goes here</Blazorise.Link>
+                    <Blazorise.Link To="/e-commerce/product/detail">@Product.Name</Blazorise.Link>
                 </CardSubtitle>
                 @if ( Product.IsNew )
                 {
@@ -17,6 +17,9 @@
                     <Badge Color="Color.Danger" Margin="Margin.Is2.FromRight">Hot</Badge>
                 }
                 <Rating SelectedValue="4" MaxValue="4" ReadOnly Display="Display.Block" />
+                <Paragraph Margin="Margin.Is2.FromTop">
+                    @Product.Description
+                </Paragraph>
             </CardBody>
         </Column>
         <Column ColumnSize="ColumnSize.Is3">
