@@ -80,6 +80,32 @@
         </Card>
     </Column>
 </Row>
+<Modal @ref="modalRef">
+    <ModalContent Size="ModalSize.Default" Centered="true">
+        <ModalHeader>
+            <Heading Size="HeadingSize.Is3" TextColor="TextColor.Primary" TextWeight="TextWeight.Bold">Don't miss our Super Deals throughout this week!  <Icon Name="IconName.MoneyBillAlt"></Icon>  <Icon Name="IconName.MoneyBillAlt"></Icon> <Icon Name="IconName.MoneyBillAlt"></Icon>  </Heading>
+            <Alert Visible="true" Color="Color.Warning">
+                <AlertMessage><Icon Name="IconName.Wallet"></Icon> UP TO 50% OFF!</AlertMessage>
+            </Alert>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            @foreach ( var product in AppState.Products.Where( x => x.Discount >= 10 ) )
+            {
+                <ProductCard Product="product"></ProductCard>
+            }
+        </ModalBody>
+    </ModalContent>
+</Modal>
 @code{
+    [CascadingParameter] public AppState AppState { get; set; }
+    private Modal modalRef;
     string selectedSlide = "1";
+
+    protected override Task OnAfterRenderAsync( bool firstRender )
+    {
+        if ( firstRender )
+            modalRef.Show();
+        return base.OnAfterRenderAsync( firstRender );
+    }
 }
