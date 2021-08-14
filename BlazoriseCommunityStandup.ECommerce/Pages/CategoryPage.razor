@@ -1,0 +1,237 @@
+﻿@page "/e-commerce/category"
+
+<Breadcrumb>
+    <BreadcrumbItem>
+        <BreadcrumbLink To="#">
+            Home
+        </BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+        <BreadcrumbLink To="#">
+            Men
+        </BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+        <BreadcrumbLink To="#">
+            T-Shirts
+        </BreadcrumbLink>
+    </BreadcrumbItem>
+</Breadcrumb>
+
+<Container Fluid>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is3">
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>CATEGORIES</CardHeader>
+                <ListGroup Flush>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">Clothing</Blazorise.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">Leather Bag</Blazorise.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">Trausers</Blazorise.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">Sweater & Cardigans</Blazorise.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">High Heels</Blazorise.Link>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Blazorise.Link To="#">Coats & Jackets</Blazorise.Link>
+                    </ListGroupItem>
+                </ListGroup>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>PRICE</CardHeader>
+                <ListGroup Flush>
+                    <ListGroupItem>
+                        <Field Margin="Margin.Is0.OnY">
+                            <Check TValue="bool">$24.00 - $29.00 <Text TextColor="TextColor.Muted">(4)</Text></Check>
+                        </Field>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Field Margin="Margin.Is0.OnY">
+                            <Check TValue="bool">$33.00 - $35.00 <Text TextColor="TextColor.Muted">(2)</Text></Check>
+                        </Field>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Field Margin="Margin.Is0.OnY">
+                            <Check TValue="bool">$70.00 - $99.00 <Text TextColor="TextColor.Muted">(5)</Text></Check>
+                        </Field>
+                    </ListGroupItem>
+                </ListGroup>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>SIZE</CardHeader>
+                <ListGroup Flush>
+                    <ListGroupItem>
+                        <Row>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">S <Text TextColor="TextColor.Muted">(8)</Text></Check>
+                                </Field>
+                            </Column>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">XL <Text TextColor="TextColor.Muted">(9)</Text></Check>
+                                </Field>
+                            </Column>
+                        </Row>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Row>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">M <Text TextColor="TextColor.Muted">(10)</Text></Check>
+                                </Field>
+                            </Column>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">2XL <Text TextColor="TextColor.Muted">(5)</Text></Check>
+                                </Field>
+                            </Column>
+                        </Row>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <Row>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">L <Text TextColor="TextColor.Muted">(15)</Text></Check>
+                                </Field>
+                            </Column>
+                            <Column>
+                                <Field Margin="Margin.Is0.OnY">
+                                    <Check TValue="bool">3XL <Text TextColor="TextColor.Muted">(2)</Text></Check>
+                                </Field>
+                            </Column>
+                        </Row>
+                    </ListGroupItem>
+                </ListGroup>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>CUSTOMER REVIEW</CardHeader>
+                <CardBody>
+                    <Field Margin="Margin.Is0.OnY">
+                        <RadioGroup TValue="int" Name="rating" Orientation="Orientation.Vertical">
+                            <Radio TValue="int" Value="5"><Rating SelectedValue="5" ReadOnly /></Radio>
+                            <Radio TValue="int" Value="4"><Rating SelectedValue="4" ReadOnly /></Radio>
+                            <Radio TValue="int" Value="3"><Rating SelectedValue="3" ReadOnly /></Radio>
+                            <Radio TValue="int" Value="2"><Rating SelectedValue="2" ReadOnly /></Radio>
+                            <Radio TValue="int" Value="1"><Rating SelectedValue="1" ReadOnly /></Radio>
+                        </RadioGroup>
+                    </Field>
+                </CardBody>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>PRODUCT TAGS</CardHeader>
+                <CardBody>
+                    <Button Color="Color.Info" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Summer</Button>
+                    <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Clothing</Button>
+                    <Button Color="Color.Success" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Women</Button>
+                    <Button Color="Color.Danger" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Hot Trend</Button>
+                    <Button Color="Color.Dark" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Jacket</Button>
+                    <Button Color="Color.Primary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Men</Button>
+                    <Button Color="Color.Warning" Size="Size.Small" Outline Margin="Margin.Is2.FromRight.Is2.FromBottom">Luxury</Button>
+                </CardBody>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>PRODUCT TAGS</CardHeader>
+                <CardBody>
+                    <Row Border="Border.OnBottom">
+                        <Column ColumnSize="ColumnSize.Is2">
+                            <Icon Name="IconName.Truck" IconSize="IconSize.x2" />
+                        </Column>
+                        <Column>
+                            <Strong>Free delivery</Strong>
+                            <Paragraph TextColor="TextColor.Muted">From $59.89</Paragraph>
+                        </Column>
+                    </Row>
+                    <Row Border="Border.OnBottom" Padding="Padding.Is3.OnY">
+                        <Column ColumnSize="ColumnSize.Is2">
+                            <Icon Name="IconName.Headphones" IconSize="IconSize.x2" />
+                        </Column>
+                        <Column>
+                            <Strong>Support 24/7</Strong>
+                            <Paragraph TextColor="TextColor.Muted">Online 24 hours</Paragraph>
+                        </Column>
+                    </Row>
+                    <Row Padding="Padding.Is3.FromTop">
+                        <Column ColumnSize="ColumnSize.Is2">
+                            <Icon Name="IconName.Undo" IconSize="IconSize.x2" />
+                        </Column>
+                        <Column>
+                            <Strong>Free return</Strong>
+                            <Paragraph TextColor="TextColor.Muted">365 a day</Paragraph>
+                        </Column>
+                    </Row>
+                </CardBody>
+            </Card>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is9">
+            <Row>
+                <Column ColumnSize="ColumnSize.Is8.OnDesktop">
+                    <Text TextWeight="TextWeight.Bold">128 results for</Text>
+                    <Text TextColor="TextColor.Warning">"t-shirts"</Text>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+                    <Select TValue="string" Style="max-width: 180px;">
+                        <SelectItem TValue="string">Most Popular</SelectItem>
+                        <SelectItem TValue="string">Latest items</SelectItem>
+                        <SelectItem TValue="string">Trending</SelectItem>
+                        <SelectItem TValue="string">Price low to high</SelectItem>
+                        <SelectItem TValue="string">Price high to low</SelectItem>
+                    </Select>
+                    <Buttons>
+                        <Button Color="Color.Primary" Outline>
+                            <Icon Name="IconName.List" />
+                        </Button>
+                        <Button Color="Color.Primary">
+                            <Icon Name="@("fa-th")" />
+                        </Button>
+                    </Buttons>
+                </Column>
+            </Row>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
+                </Column>
+                <Column ColumnSize="ColumnSize.Is4">
+                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
+                </Column>
+            </Row>
+        </Column>
+    </Row>
+</Container>
