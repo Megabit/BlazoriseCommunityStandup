@@ -185,53 +185,38 @@
                         <SelectItem TValue="string">Price high to low</SelectItem>
                     </Select>
                     <Buttons>
-                        <Button Color="Color.Primary" Outline>
-                            <Icon Name="IconName.List" />
-                        </Button>
-                        <Button Color="Color.Primary">
+                        <Button Color="Color.Primary" Outline="@AppState.ProductsAsList" Clicked="@(()=>AppState.ProductsAsList = false)">
                             <Icon Name="@("fa-th")" />
+                        </Button>
+                        <Button Color="Color.Primary" Outline="@(!AppState.ProductsAsList)" Clicked="@(()=>AppState.ProductsAsList = true)">
+                            <Icon Name="IconName.List" />
                         </Button>
                     </Buttons>
                 </Column>
             </Row>
             <Row>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_red_480x400.webp" Price="200" Discount="10" IsNew />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_grey_480x400.webp" Price="475" />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_black_480x400.webp" Price="350" Discount="20" IsNew IsHot />
-                </Column>
-                <Column ColumnSize="ColumnSize.Is4">
-                    <ProductCard ImageUrl="img/e-commerce/products/tshirt_green_480x400.webp" Price="10" />
-                </Column>
+                @if ( AppState.ProductsAsList )
+                {
+                    @foreach ( var product in AppState.Products )
+                    {
+                        <Column ColumnSize="ColumnSize.Is12">
+                            <ProductHorizontalCard Product="@product" />
+                        </Column>
+                    }
+                }
+                else
+                {
+                    @foreach ( var product in AppState.Products )
+                    {
+                        <Column ColumnSize="ColumnSize.Is4">
+                            <ProductCard Product="@product" />
+                        </Column>
+                    }
+                }
             </Row>
         </Column>
     </Row>
 </Container>
+@code{
+    [CascadingParameter] private AppState AppState { get; set; }
+}

@@ -5,6 +5,11 @@
         <TopBar />
     </LayoutHeader>
     <LayoutContent Style="margin-top: 72px;">
-        @Body
+        <CascadingValue Value="@AppState">
+            @Body
+        </CascadingValue>
     </LayoutContent>
 </Layout>
+@code{
+    AppState AppState = new States.AppState();
+}

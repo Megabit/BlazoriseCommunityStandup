@@ -1,0 +1,55 @@
+﻿<Card Margin="Margin.Is3.FromBottom">
+    <Row>
+        <Column ColumnSize="ColumnSize.Is3" TextAlignment="TextAlignment.Center">
+            <Image Source="@Product.ImageUrl" alt="..." Fluid />
+        </Column>
+        <Column ColumnSize="ColumnSize.Is6">
+            <CardBody>
+                <CardSubtitle Margin="Margin.Is2.FromRight" Display="Display.Inline">
+                    <Blazorise.Link To="/e-commerce/product/detail">Great product name goes here</Blazorise.Link>
+                </CardSubtitle>
+                @if ( Product.IsNew )
+                {
+                    <Badge Color="Color.Success" Margin="Margin.Is2.FromRight">New</Badge>
+                }
+                @if ( Product.IsHot )
+                {
+                    <Badge Color="Color.Danger" Margin="Margin.Is2.FromRight">Hot</Badge>
+                }
+                <Rating SelectedValue="4" MaxValue="4" ReadOnly Display="Display.Block" />
+            </CardBody>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is3">
+            <CardBody>
+                <Div Margin="Margin.Is2.FromBottom">
+                    <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>
+                    @if ( Product.Discount != null )
+                    {
+                        <Small TextColor="TextColor.Muted" Margin="Margin.Is2.FromLeft">
+                            <del>$@Product.Price</del>
+                        </Small>
+                    }
+                    @if ( Product.Discount != null )
+                    {
+                        <Span Background="Background.Warning" Border="Border.Rounded" Margin="Margin.Is2.FromLeft" Padding="Padding.Is1">
+                            @($"-{Product.Discount}%")
+                        </Span>
+                    }
+                </Div>
+                <Buttons Width="Width.Is100" Size="Size.Small">
+                    <Button Color="Color.Primary" title="Add to cart">
+                        <Icon Name="IconName.CartPlus" />
+                    </Button>
+                    <Button Color="Color.Primary" Outline title="Add to wishlist">
+                        <Icon Name="IconName.Heart" />
+                    </Button>
+                </Buttons>
+            </CardBody>
+        </Column>
+    </Row>
+</Card>
+@code{
+    [Parameter] public Product Product { get; set; }
+
+    int FinalPrice => (int)( Product.Price - ( Product.Price * Product.Discount.GetValueOrDefault( 0 ) / 100m ) );
+}
