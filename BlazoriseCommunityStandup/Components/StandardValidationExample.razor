@@ -1,0 +1,58 @@
+﻿<Validation Validator="@ValidationRule.IsNotEmpty">
+    <Field>
+        <TextEdit Placeholder="Enter a value">
+            <Feedback>
+                <ValidationNone>Please enter a value.</ValidationNone>
+                <ValidationSuccess>value is valid.</ValidationSuccess>
+                <ValidationError>Please enter a value.</ValidationError>
+            </Feedback>
+        </TextEdit>
+    </Field>
+</Validation>
+
+<Validation Validator="@ValidateEmail">
+    <Field>
+        <TextEdit Placeholder="Enter email">
+            <Feedback>
+                <ValidationNone>Please enter an email.</ValidationNone>
+                <ValidationSuccess>Email is valid.</ValidationSuccess>
+                <ValidationError>Enter a valid email!</ValidationError>
+            </Feedback>
+        </TextEdit>
+    </Field>
+</Validation>
+
+<Validation Validator="@ValidateCheck">
+    <Field>
+        <Check TValue="bool">
+            <ChildContent>
+                Check me
+            </ChildContent>
+            <Feedback>
+                <ValidationError>You must check me</ValidationError>
+            </Feedback>
+        </Check>
+    </Field>
+</Validation>
+
+@code{
+    void ValidateEmail( ValidatorEventArgs e )
+    {
+        var email = Convert.ToString( e.Value );
+
+        e.Status = string.IsNullOrEmpty( email )
+                    ? ValidationStatus.None
+                    : email.Contains( "@" )
+                        ? ValidationStatus.Success
+                        : ValidationStatus.Error;
+    }
+
+    void ValidateCheck( ValidatorEventArgs e )
+    {
+        var value = e.Value.ToString();
+        e.Status = bool.TryParse( e.Value.ToString(), out bool result ) && result
+                    ? ValidationStatus.Success
+                    : ValidationStatus.Error;
+
+    }
+}

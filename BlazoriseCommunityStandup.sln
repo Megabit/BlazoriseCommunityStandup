@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.223
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazoriseCommunityStandup", "BlazoriseCommunityStandup\BlazoriseCommunityStandup.csproj", "{C5223117-7364-4149-8078-E101B3A0B2C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazoriseCommunityStandup", "BlazoriseCommunityStandup\BlazoriseCommunityStandup.csproj", "{C5223117-7364-4149-8078-E101B3A0B2C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazoriseCommunityStandup.ECommerce", "BlazoriseCommunityStandup.ECommerce\BlazoriseCommunityStandup.ECommerce.csproj", "{E66879D8-745E-4A49-B2BB-BA2FA6FB6AA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazoriseCommunityStandup.ECommerce", "BlazoriseCommunityStandup.ECommerce\BlazoriseCommunityStandup.ECommerce.csproj", "{E66879D8-745E-4A49-B2BB-BA2FA6FB6AA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

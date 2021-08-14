@@ -1,0 +1,9 @@
+﻿@*https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel*@
+<Validation UsePattern="true">
+    <TextEdit Pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <Feedback>
+            <ValidationSuccess>Valid format.</ValidationSuccess>
+            <ValidationError>Invalid format. Expected format: 123-456-7890</ValidationError>
+        </Feedback>
+    </TextEdit>
+</Validation>

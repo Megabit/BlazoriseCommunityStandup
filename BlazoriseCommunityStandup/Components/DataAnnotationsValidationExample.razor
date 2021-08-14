@@ -1,0 +1,56 @@
+﻿<Validations @ref="validationsRef" Model="example" ValidateOnLoad="true">
+    <Fields>
+        <Validation>
+            <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit Placeholder="Name..." @bind-Text="example.Name" />
+            </Field>
+        </Validation>
+        <Validation>
+            <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                <FieldLabel>Age</FieldLabel>
+                <NumericEdit Placeholder="Age..." @bind-Value="example.Age" />
+            </Field>
+        </Validation>
+    </Fields>
+
+    <Validation>
+        <Field>
+            <FieldLabel>Email</FieldLabel>
+            <FieldBody>
+                <TextEdit Placeholder="Email..." @bind-Text="example.Email">
+                </TextEdit>
+            </FieldBody>
+        </Field>
+    </Validation>
+
+    <Validation>
+        <Field>
+            <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
+            <FieldBody>
+                <Check @bind-Checked="example.AcceptedTerms"></Check>
+            </FieldBody>
+        </Field>
+    </Validation>
+        <Blazorise.ValidationSummary Label="Please correct the following errors:" />
+</Validations>
+@code {
+    private Validations validationsRef;
+    private Example example = new();
+
+    public class Example
+    {
+        [Required( ErrorMessage = "Please provide a name" )]
+        public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [RequiredBoolean( "You must accept our terms!" )]
+        public bool AcceptedTerms { get; set; }
+
+        [Range( 18, 50, ErrorMessage = "You must be between 18 and 50 years old!" )]
+        public int Age { get; set; }
+    }
+}

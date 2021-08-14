@@ -1,0 +1,41 @@
+﻿<Validations ValidateOnLoad="false">
+    <Validation AsyncValidator="ValidateIdentificationAsync">
+        <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">
+            <FieldLabel>Identification</FieldLabel>
+            <FieldBody>
+                <NumericEdit TValue="long" Placeholder="Identification..." @bind-Value="identification">
+                    <ValidationNone>Please provide your Identification.</ValidationNone>
+                    <ValidationSuccess>Your Identification is valid.</ValidationSuccess>
+                    <ValidationError>Invalid Identification was provided.</ValidationError>
+                </NumericEdit>
+            </FieldBody>
+            @if ( validatingIdentification )
+            {
+                <FieldHelp>Validating your identification, please wait...</FieldHelp>
+            }
+        </Field>
+    </Validation>
+</Validations>
+
+@code{
+    private bool validatingIdentification;
+    private long identification;
+
+    private async Task ValidateIdentificationAsync( ValidatorEventArgs e, System.Threading.CancellationToken cancellationToken )
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        validatingIdentification = true;
+        await InvokeAsync( StateHasChanged );
+
+
+        // some long running task or call to the rest API
+        await Task.Delay( 1500 );
+
+        e.Status = Convert.ToInt64( e.Value ) < 100000
+            ? ValidationStatus.Error
+            : ValidationStatus.Success;
+        validatingIdentification = false;
+        await InvokeAsync( StateHasChanged );
+    }
+
+}
