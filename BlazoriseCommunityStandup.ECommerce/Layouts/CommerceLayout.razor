@@ -1,15 +1,15 @@
 ﻿@inherits LayoutComponentBase
-
-<Layout>
-    <LayoutHeader Fixed="true">
-        <TopBar />
-    </LayoutHeader>
-    <LayoutContent Style="margin-top: 72px;">
-        <CascadingValue Value="@AppState">
+<CascadingValue Value="@AppState">
+    <Layout>
+        <LayoutHeader Fixed="true">
+            <TopBar />
+        </LayoutHeader>
+        <LayoutContent Style="margin-top: 72px;">
             @Body
-        </CascadingValue>
-    </LayoutContent>
-</Layout>
+        </LayoutContent>
+    </Layout>
+</CascadingValue>
+
 @code{
     AppState AppState = new States.AppState();
 }

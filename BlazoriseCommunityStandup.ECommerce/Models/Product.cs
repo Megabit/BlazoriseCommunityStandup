@@ -34,5 +34,8 @@ namespace BlazoriseCommunityStandup.ECommerce.Models
         public bool IsHot { get; set; }
 
         public string Description { get; set; }
+
+        public int GetFinalPrice()
+             => (int)( Price - ( Price * Discount.GetValueOrDefault( 0 ) / 100m ) );
     }
 }

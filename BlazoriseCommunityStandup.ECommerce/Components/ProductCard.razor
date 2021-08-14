@@ -41,5 +41,5 @@
 @code{
     [Parameter] public Product Product { get; set; }
 
-    int FinalPrice => (int)( Product.Price - ( Product.Price * Product.Discount.GetValueOrDefault( 0 ) / 100m ) );
+    int FinalPrice => Product.GetFinalPrice();
 }

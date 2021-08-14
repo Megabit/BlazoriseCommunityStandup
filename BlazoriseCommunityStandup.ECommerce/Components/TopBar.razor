@@ -44,7 +44,14 @@
             <BarItem>
                 <Addons>
                     <Addon AddonType="AddonType.Body">
-                        <TextEdit />
+                        <Autocomplete Data="AppState.Products" 
+                                      TItem="Product" 
+                                      TValue="string" 
+                                      ValueField="(x) => x.Name" 
+                                      TextField='@((x) => $"{x.Name} - ${x.GetFinalPrice()}")'
+                                      >
+                            <NotFoundContent>No Products found...</NotFoundContent>
+                        </Autocomplete>
                     </Addon>
                     <Addon AddonType="AddonType.End">
                         <Button Color="Color.Primary">
@@ -90,7 +97,9 @@
     </BarMenu>
 </Bar>
 @code{
-    private bool uiElementsVisible = true;
+            [CascadingParameter]
+            public AppState AppState { get; set; }
+            private bool uiElementsVisible = true;
 
-    RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
+            RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
 }
