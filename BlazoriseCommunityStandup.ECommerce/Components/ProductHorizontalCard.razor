@@ -43,10 +43,10 @@
                     <Icon Name="IconName.Truck" /> Free shipping
                 </Paragraph>
                 <Buttons Width="Width.Is100" Size="Size.Small">
-                    <Button Color="Color.Primary" title="Add to cart">
+                    <Button Color="Color.Primary" title="Add to cart" Clicked="AddToCart">
                         <Icon Name="IconName.CartPlus" />
                     </Button>
-                    <Button Color="Color.Primary" Outline title="Add to wishlist">
+                    <Button Color="Color.Primary" Outline title="Add to wishlist" Clicked="AddToWishList">
                         <Icon Name="IconName.Heart" />
                     </Button>
                 </Buttons>
@@ -54,8 +54,33 @@
         </Column>
     </Row>
 </Card>
+
+<Snackbar @ref="snackbarAddToCartRef" Color="SnackbarColor.Success">
+    <SnackbarBody>
+        Added @Product.Name to your cart! <CloseButton />
+    </SnackbarBody>
+</Snackbar>
+
+<Snackbar @ref="snackbarAddToWishListRef" Color="SnackbarColor.Primary">
+    <SnackbarBody>
+        Added @Product.Name to your Wish List! <CloseButton />
+    </SnackbarBody>
+</Snackbar>
+
 @code{
+    private Snackbar snackbarAddToCartRef;
+    private Snackbar snackbarAddToWishListRef;
     [Parameter] public Product Product { get; set; }
 
-    int FinalPrice => (int)( Product.Price - ( Product.Price * Product.Discount.GetValueOrDefault( 0 ) / 100m ) );
+    int FinalPrice => Product.GetFinalPrice();
+
+    private void AddToCart()
+    {
+        snackbarAddToCartRef.Show();
+    }
+
+    private void AddToWishList()
+    {
+        snackbarAddToWishListRef.Show();
+    }
 }
