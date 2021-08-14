@@ -1,17 +1,50 @@
-<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@AdditionalAssemblies" PreferExactMatches="@true">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-    </Found>
-    <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+<ThemeProvider Theme="@Theme">
+    <Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@AdditionalAssemblies" PreferExactMatches="@true">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</ThemeProvider>
 @code
 {
-    public List<System.Reflection.Assembly> AdditionalAssemblies = new List<System.Reflection.Assembly>
+    Theme Theme = new Theme
     {
+        ColorOptions = new ThemeColorOptions
+        {
+            Primary = "#457b9d",
+            Secondary = "#8d99ae",
+            Success = "#52b788",
+            Danger = "#e63946",
+            Warning = "#f8961e",
+            Info = "0081a7",
+        },
+        BackgroundOptions = new ThemeBackgroundOptions
+        {
+            Primary = "#457b9d",
+            Secondary = "#8d99ae",
+            Success = "#52b788",
+            Danger = "#e63946",
+            Warning = "#f8961e",
+            Info = "0081a7",
+        },
+        TextColorOptions = new ThemeTextColorOptions
+        {
+            Primary = "#457b9d",
+            Secondary = "#8d99ae",
+            Success = "#52b788",
+            Danger = "#e63946",
+            Warning = "#f8961e",
+            Info = "0081a7",
+        }
+    };
+
+    public List<System.Reflection.Assembly> AdditionalAssemblies = new List<System.Reflection.Assembly>
+{
         typeof(ECommerce.App).Assembly
     };
 }
