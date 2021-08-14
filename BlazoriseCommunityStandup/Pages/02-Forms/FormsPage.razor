@@ -1,6 +1,6 @@
 ﻿@page "/form"
 @using System.ComponentModel.DataAnnotations
-
+@using BlazoriseCommunityStandup.Validation
 <Row>
     <Column>
         <Heading Size="HeadingSize.Is1">Forms</Heading>
@@ -15,19 +15,30 @@
             </CardHeader>
             <CardBody>
                 <Validations @ref="validationsRef" Model="newClient" ValidateOnLoad="false">
-
-                    <Validation AsyncValidator="ValidateIdentificationAsync">
-                        <Field>
-                            <FieldLabel>Identification</FieldLabel>
-                            <FieldBody>
-                                <NumericEdit Placeholder="Identification..." @bind-Value="newClient.Identification" />
-                            </FieldBody>
-                            @if ( validatingIdentification )
-                            {
-                                <FieldHelp>Validating your identification, please wait...</FieldHelp>
-                            }
-                        </Field>
-                    </Validation>
+                    <Fields>
+                        <Validation AsyncValidator="ValidateIdentificationAsync">
+                            <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                                <FieldLabel>Identification</FieldLabel>
+                                <FieldBody>
+                                    <NumericEdit Placeholder="Identification..." @bind-Value="newClient.Identification" />
+                                </FieldBody>
+                                @if ( validatingIdentification )
+                                {
+                                    <FieldHelp>Validating your identification, please wait...</FieldHelp>
+                                }
+                            </Field>
+                        </Validation>
+                        <Validation UsePattern="true">
+                            <Field ColumnSize="ColumnSize.IsFull.OnTablet.Is6.OnDesktop">
+                                <FieldLabel>Branch</FieldLabel>
+                                <TextEdit Pattern="[A-Za-z]{3}">
+                                    <Feedback>
+                                        <ValidationError>Invalid branch.</ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+                        </Validation>
+                    </Fields>
 
                     <Fields>
                         <Validation>
@@ -72,23 +83,14 @@
                         </Field>
                     </Fields>
 
-                    <Validation UsePattern="true">
+                    <Validation>
                         <Field>
-                            <FieldLabel>Branch</FieldLabel>
-                            <TextEdit Pattern="[A-Za-z]{3}">
-                                <Feedback>
-                                    <ValidationError>Invalid branch.</ValidationError>
-                                </Feedback>
-                            </TextEdit>
+                            <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
+                            <FieldBody>
+                                <Check @bind-Checked="newClient.AcceptedTermsAndConditions"></Check>
+                            </FieldBody>
                         </Field>
                     </Validation>
-
-                    <Field>
-                        <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
-                        <FieldBody>
-                            <Check @bind-Checked="newClient.AcceptedTermsAndConditions"></Check>
-                        </FieldBody>
-                    </Field>
 
                     <Blazorise.ValidationSummary Label="Please correct the following errors:" />
                 </Validations>
@@ -138,8 +140,7 @@
         //3. Using Pattern
         //Example : Branch
         //4. Using Async Validation
-        //Example : Name
-
+        //Example : Identification
         if ( validationsRef.ValidateAll() )
         {
             //Success
@@ -151,14 +152,13 @@
     public class Client
     {
         public long Identification { get; set; }
-        [Required]
-        [MinLength( 1 )]
+        [Required(ErrorMessage = "Please insert your Name")]
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public Gender Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        [Range( typeof( bool ), "true", "true", ErrorMessage = "Make sure that you've read the terms and conditions and that you agree to them." )]
+        [RequiredBoolean( "Make sure that you've read the terms and conditions and that you agree to them." )]
         public bool AcceptedTermsAndConditions { get; set; }
 
         public string Branch { get; set; }
