@@ -1,0 +1,145 @@
+﻿@page "/e-commerce/cart"
+
+<Div Background="Background.Secondary" TextColor="TextColor.White" Padding="Padding.Is4" Margin="Margin.Is3.FromBottom">
+    <DisplayHeading Size="DisplayHeadingSize.Is4">Shopping Cart</DisplayHeading>
+</Div>
+
+<Container Margin="Margin.Is3.FromBottom">
+    <Row>
+        <Column ColumnSize="ColumnSize.Is9.OnDesktop">
+            <Card>
+                <Table Responsive Borderless>
+                    <TableHeader TextColor="TextColor.Muted">
+                        <TableRow TextTransform="TextTransform.Uppercase">
+                            <TableHeaderCell>Product</TableHeaderCell>
+                            <TableHeaderCell Style="width: 120px;">Quantity</TableHeaderCell>
+                            <TableHeaderCell Style="width: 150px;">Price</TableHeaderCell>
+                            <TableHeaderCell Style="width: 130px;" TextAlignment="TextAlignment.Right"></TableHeaderCell>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        @foreach ( var product in Products )
+                        {
+                            <TableRow>
+                                <TableRowCell>
+                                    <Row>
+                                        <Column ColumnSize="ColumnSize.Is3" Display="Display.None.Block.OnDesktop">
+                                            <Image Source="@product.ImageUrl" Style="width: 80px;" Text="..." />
+                                        </Column>
+                                        <Column>
+                                            <Blazorise.Link To="e-commerce/product/detail">
+                                                @product.Name
+                                            </Blazorise.Link>
+                                            <Small TextColor="TextColor.Muted" Display="Display.Block">
+                                                Size: XL, Color: blue, Brand: XYZ
+                                            </Small>
+                                        </Column>
+                                    </Row>
+                                </TableRowCell>
+                                <TableRowCell>
+                                    <NumericAddon />
+                                </TableRowCell>
+                                <TableRowCell>
+                                    <Text>$@product.GetFinalPrice()</Text>
+                                    <Small Display="Display.Block" TextColor="TextColor.Muted">$79.00 each</Small>
+                                </TableRowCell>
+                                <TableRowCell TextAlignment="TextAlignment.Right">
+                                    <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
+                                        <Icon Name="IconName.Heart" />
+                                    </Button>
+                                    <Button Color="Color.Danger" Size="Size.Small" Outline>
+                                        <Icon Name="IconName.Delete" />
+                                    </Button>
+                                </TableRowCell>
+                            </TableRow>
+                        }
+                    </TableBody>
+                </Table>
+                <CardFooter>
+                    <Button Type="ButtonType.Link" To="e-commerce/checkout" Color="Color.Primary" Float="Float.Right">
+                        Make Purchase
+                        <Icon Name="IconName.ChevronRight" />
+                    </Button>
+                    <Button Type="ButtonType.Link" To="e-commerce" Color="Color.Secondary">
+                        <Icon Name="IconName.ChevronLeft" />
+                        Make Purchase
+                    </Button>
+                </CardFooter>
+            </Card>
+            <Alert Color="Color.Success" Visible Margin="Margin.Is3.FromTop">
+                <AlertDescription Margin="Margin.Is0">
+                    <Icon Name="IconName.Truck" />
+                    Free Delivery within 1-2 weeks
+                </AlertDescription>
+            </Alert>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is3.OnDesktop">
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardBody>
+                    <Form>
+                        <Field>
+                            <FieldLabel>Have coupon?</FieldLabel>
+                            <FieldBody>
+                                <TextEdit Placeholder="Coupon code" />
+                            </FieldBody>
+                        </Field>
+                        <Button Color="Color.Primary" Size="Size.Small" Margin="Margin.Is3.FromTop" Float="Float.Right">Apply</Button>
+                    </Form>
+                </CardBody>
+            </Card>
+            <Card>
+                <CardBody>
+                    <Row Border="Border.OnBottom">
+                        <Column TextWeight="TextWeight.Bold">
+                            Total price:
+                        </Column>
+                        <Column TextAlignment="TextAlignment.Right">
+                            $1,568
+                        </Column>
+                        <Column TextWeight="TextWeight.Bold" TextColor="TextColor.Success">
+                            Discount:
+                        </Column>
+                        <Column TextColor="TextColor.Success" TextAlignment="TextAlignment.Right">
+                            -$58
+                        </Column>
+                        <Column TextWeight="TextWeight.Bold" TextColor="TextColor.Success">
+                            Coupon: <Text TextColor="TextColor.Muted">EXAMPLECODE</Text>
+                        </Column>
+                        <Column TextColor="TextColor.Success" TextAlignment="TextAlignment.Right">
+                            -$68
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column>Total:</Column>
+                        <Column TextAlignment="TextAlignment.Right">
+                            <Strong>$1,350</Strong>
+                        </Column>
+                    </Row>
+                    <hr>
+                    <Paragraph TextAlignment="TextAlignment.Center">
+                        <Image Source="img/e-commerce/payments.webp" Text="..." Style="height: 26px;" />
+                    </Paragraph>
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+</Container>
+
+<Div Background="Background.Light" Padding="Padding.Is4" Border="Border.OnTop">
+    <Container>
+        <Heading Size="HeadingSize.Is6">
+            Payment and refund policy
+        </Heading>
+        <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </Paragraph>
+        <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </Paragraph>
+    </Container>
+</Div>
+@code{
+    private IEnumerable<Product> Products => AppState.Products.Take( 2 );
+
+    [CascadingParameter] private AppState AppState { get; set; }
+}

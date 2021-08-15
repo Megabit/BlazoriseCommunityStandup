@@ -31,18 +31,18 @@
 
                         <DataGridColumn TItem="Order" Field="@nameof(Order.OrderState)" Caption="Order State">
                             <FilterTemplate>
-                                @{ 
-                                    selectedStateFilter = string.IsNullOrEmpty(context.SearchValue?.ToString()) ? OrderState.None : (OrderState)context.SearchValue;
-                                <Select TValue="OrderState" 
-                                        SelectedValue="selectedStateFilter" 
-                                        SelectedValueChanged="@(value => { selectedStateFilter = value; context.TriggerFilterChange( selectedStateFilter ); })">
-                                    <SelectItem TValue="OrderState" Value="OrderState.None"></SelectItem>
-                                    <SelectItem TValue="OrderState" Value="OrderState.Created">@nameof(OrderState.Created)</SelectItem>
-                                    <SelectItem TValue="OrderState" Value="OrderState.Confirmed">@nameof(OrderState.Confirmed)</SelectItem>
-                                    <SelectItem TValue="OrderState" Value="OrderState.Processing">@nameof(OrderState.Processing)</SelectItem>
-                                    <SelectItem TValue="OrderState" Value="OrderState.Completed">@nameof(OrderState.Completed)</SelectItem>
-                                    <SelectItem TValue="OrderState" Value="OrderState.Cancelled">@nameof(OrderState.Cancelled)</SelectItem>
-                                </Select>
+                                @{
+                                    selectedStateFilter = string.IsNullOrEmpty( context.SearchValue?.ToString() ) ? OrderState.None : (OrderState)context.SearchValue;
+                                    <Select TValue="OrderState"
+                                            SelectedValue="selectedStateFilter"
+                                            SelectedValueChanged="@(value => { selectedStateFilter = value; context.TriggerFilterChange( selectedStateFilter ); })">
+                                        <SelectItem TValue="OrderState" Value="OrderState.None"></SelectItem>
+                                        <SelectItem TValue="OrderState" Value="OrderState.Created">@nameof( OrderState.Created )</SelectItem>
+                                        <SelectItem TValue="OrderState" Value="OrderState.Confirmed">@nameof( OrderState.Confirmed )</SelectItem>
+                                        <SelectItem TValue="OrderState" Value="OrderState.Processing">@nameof( OrderState.Processing )</SelectItem>
+                                        <SelectItem TValue="OrderState" Value="OrderState.Completed">@nameof( OrderState.Completed )</SelectItem>
+                                        <SelectItem TValue="OrderState" Value="OrderState.Cancelled">@nameof( OrderState.Cancelled )</SelectItem>
+                                    </Select>
                                 }
 
                             </FilterTemplate>
