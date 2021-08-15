@@ -1,0 +1,70 @@
+﻿@page "/e-commerce/signup"
+
+<Container Margin="Margin.Is3.OnY">
+    <Row Flex="Flex.JustifyContent.Center.OnDesktop">
+        <Column ColumnSize="ColumnSize.Is6.OnDesktop" Padding="Padding.Is3" Border="Border.Is1">
+            <Heading Size="HeadingSize.Is4" TextAlignment="TextAlignment.Center">
+                Sign Up
+            </Heading>
+            <Form>
+                <Fields>
+                    <Field>
+                        <FieldLabel>
+                            First name
+                        </FieldLabel>
+                        <FieldBody>
+                            <TextEdit Placeholder="First name" />
+                        </FieldBody>
+                    </Field>
+                    <Field>
+                        <FieldLabel>
+                            Last name
+                        </FieldLabel>
+                        <FieldBody>
+                            <TextEdit Placeholder="Last name" />
+                        </FieldBody>
+                    </Field>
+                </Fields>
+                <Field>
+                    <FieldLabel>
+                        Email
+                    </FieldLabel>
+                    <FieldBody>
+                        <Addons>
+                            <Addon AddonType="AddonType.Start">
+                                <AddonLabel>
+                                    <Icon Name="IconName.Mail" />
+                                </AddonLabel>
+                            </Addon>
+                            <Addon AddonType="AddonType.Body">
+                                <TextEdit Placeholder="Email" />
+                            </Addon>
+                        </Addons>
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel>
+                        Your password
+                    </FieldLabel>
+                    <FieldBody>
+                        <Addons>
+                            <Addon AddonType="AddonType.Start">
+                                <AddonLabel>
+                                    <Icon Name="IconName.ShieldAlt" />
+                                </AddonLabel>
+                            </Addon>
+                            <Addon AddonType="AddonType.Body">
+                                <TextEdit Role="TextRole.Password" />
+                            </Addon>
+                        </Addons>
+                    </FieldBody>
+                </Field>
+                <Button Color="Color.Primary" Block Margin="Margin.Is3.FromBottom">
+                    Create
+                </Button>
+                <Blazorise.Link Float="Float.Left" To="e-commerce/signin">Sign In</Blazorise.Link>
+                <Blazorise.Link Float="Float.Right" To="e-commerce/forgotpassword">Forgot password?</Blazorise.Link>
+            </Form>
+        </Column>
+    </Row>
+</Container>
