@@ -36,5 +36,12 @@ namespace BlazoriseCommunityStandup.ECommerce.States
                 new( 300, Products.Skip( 6 ).Take( 2 ) )
             };
         }
+
+        public List<Customer> Customers = new List<Customer>
+        {
+            new() { Id = 100, Name = "Safia" },
+            new() { Id = 200, Name = "Dan" },
+            new() { Id = 300, Name = "John" },
+        };
     }
 }

@@ -5,7 +5,9 @@
 <Row NoGutters Margin="Margin.Is4.FromTop">
     <Column>
         <Card Margin="Margin.Is2.OnX" TextAlignment="TextAlignment.Center">
-            <CardHeader> Customer Orders </CardHeader>
+            <CardHeader>
+                Customer Orders
+            </CardHeader>
             <CardBody>
                 <DataGrid TItem="Order"
                           Data="AppState.Orders"
@@ -18,10 +20,9 @@
                     <DataGridColumns>
                         <DataGridColumn TItem="Order" Field="@nameof(Order.OrderId)" Caption="Order Id"></DataGridColumn>
                         <DataGridColumn TItem="Order" Field="@nameof(Order.CustomerId)" Caption="Customer Id"></DataGridColumn>
-
                         <DataGridColumn TItem="Order" Field="@nameof(Order.CustomerId)" Editable="false" Caption="Customer Name">
                             <DisplayTemplate>
-                                @CustomerDB.First( x => x.Id == context.CustomerId ).Name
+                                @AppState.Customers.First( x => x.Id == context.CustomerId ).Name
                             </DisplayTemplate>
                         </DataGridColumn>
 
@@ -102,19 +103,12 @@
 
 @code {
     [CascadingParameter] public AppState AppState { get; set; }
-    public List<Customer> CustomerDB { get; set; } = new()
-    {
-            new() { Id = 100, Name = "Safia" },
-            new() { Id = 200, Name = "Dan" },
-            new() { Id = 300, Name = "John" },
-        };
 
     private Order selectedOrder;
     private OrderState selectedStateFilter;
 
     private bool TriggerDetailRow( Order order )
         => order.OrderId == selectedOrder?.OrderId;
-
 
     private void CancelOrder()
         => selectedOrder.SetOrderState( OrderState.Cancelled );
@@ -144,6 +138,4 @@
                 break;
         }
     }
-
-
 }
