@@ -14,6 +14,10 @@
                 <BarDropdown>
                     <BarDropdownToggle>All Pages</BarDropdownToggle>
                     <BarDropdownMenu>
+                        <BarDropdownItem To="e-commerce/backend/orders">
+                            Backend
+                        </BarDropdownItem>
+                        <BarDropdownDivider />
                         <BarDropdownItem To="signin">
                             Sign In
                         </BarDropdownItem>
@@ -44,12 +48,11 @@
             <BarItem>
                 <Addons>
                     <Addon AddonType="AddonType.Body">
-                        <Autocomplete Data="AppState.Products" 
-                                      TItem="Product" 
-                                      TValue="string" 
-                                      ValueField="(x) => x.Name" 
-                                      TextField='@((x) => $"{x.Name} - ${x.GetFinalPrice()}")'
-                                      >
+                        <Autocomplete Data="AppState.Products"
+                                      TItem="Product"
+                                      TValue="string"
+                                      ValueField="(x) => x.Name"
+                                      TextField='@((x) => $"{x.Name} - ${x.GetFinalPrice()}")'>
                             <NotFoundContent>No Products found...</NotFoundContent>
                         </Autocomplete>
                     </Addon>
@@ -97,9 +100,9 @@
     </BarMenu>
 </Bar>
 @code{
-            [CascadingParameter]
-            public AppState AppState { get; set; }
-            private bool uiElementsVisible = true;
+    [CascadingParameter]
+    public AppState AppState { get; set; }
+    private bool uiElementsVisible = true;
 
-            RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
+    RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
 }

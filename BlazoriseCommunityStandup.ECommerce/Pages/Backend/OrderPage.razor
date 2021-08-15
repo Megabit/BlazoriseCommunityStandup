@@ -1,0 +1,149 @@
+﻿@* In a real world app, makes sense to separate back end app from front end app instead *@
+@page "/e-commerce/backend/orders"
+@layout Layouts.BackendLayout
+
+<Row NoGutters Margin="Margin.Is4.FromTop">
+    <Column>
+        <Card Margin="Margin.Is2.OnX" TextAlignment="TextAlignment.Center">
+            <CardHeader> Customer Orders </CardHeader>
+            <CardBody>
+                <DataGrid TItem="Order"
+                          Data="AppState.Orders"
+                          @bind-SelectedRow="selectedOrder"
+                          DetailRowTrigger="TriggerDetailRow"
+                          ShowPager="true"
+                          Filterable="true"
+                          Sortable="true"
+                          RowStyling="CustomRowStyling">
+                    <DataGridColumns>
+                        <DataGridColumn TItem="Order" Field="@nameof(Order.OrderId)" Caption="Order Id"></DataGridColumn>
+                        <DataGridColumn TItem="Order" Field="@nameof(Order.CustomerId)" Caption="Customer Id"></DataGridColumn>
+
+                        <DataGridColumn TItem="Order" Field="@nameof(Order.CustomerId)" Editable="false" Caption="Customer Name">
+                            <DisplayTemplate>
+                                @CustomerDB.First( x => x.Id == context.CustomerId ).Name
+                            </DisplayTemplate>
+                        </DataGridColumn>
+
+                        <DataGridDateColumn TItem="Order" Field="@nameof(Order.DateCreated)" Caption="Order Date"></DataGridDateColumn>
+
+                        <DataGridColumn TItem="Order" Field="@nameof(Order.GetOrderTotalPrice)" Caption="Order Total Price" Editable="false"></DataGridColumn>
+
+                        <DataGridColumn TItem="Order" Field="@nameof(Order.OrderState)" Caption="Order State">
+                            <FilterTemplate>
+                                @{ 
+                                    selectedStateFilter = string.IsNullOrEmpty(context.SearchValue?.ToString()) ? OrderState.None : (OrderState)context.SearchValue;
+                                <Select TValue="OrderState" 
+                                        SelectedValue="selectedStateFilter" 
+                                        SelectedValueChanged="@(value => { selectedStateFilter = value; context.TriggerFilterChange( selectedStateFilter ); })">
+                                    <SelectItem TValue="OrderState" Value="OrderState.None"></SelectItem>
+                                    <SelectItem TValue="OrderState" Value="OrderState.Created">@nameof(OrderState.Created)</SelectItem>
+                                    <SelectItem TValue="OrderState" Value="OrderState.Confirmed">@nameof(OrderState.Confirmed)</SelectItem>
+                                    <SelectItem TValue="OrderState" Value="OrderState.Processing">@nameof(OrderState.Processing)</SelectItem>
+                                    <SelectItem TValue="OrderState" Value="OrderState.Completed">@nameof(OrderState.Completed)</SelectItem>
+                                    <SelectItem TValue="OrderState" Value="OrderState.Cancelled">@nameof(OrderState.Cancelled)</SelectItem>
+                                </Select>
+                                }
+
+                            </FilterTemplate>
+                        </DataGridColumn>
+                    </DataGridColumns>
+
+                    <DetailRowTemplate>
+                        @{
+                            <DataGrid TItem="Product"
+                                      Data="context.Products"
+                                      Sortable="false"
+                                      ShowCaptions="true">
+                                <DataGridColumn TItem="Product" Field="@nameof(Product.Id)" Caption="Id" />
+                                <DataGridColumn TItem="Product" Field="@nameof(Product.Name)" Caption="Name" />
+                                <DataGridColumn TItem="Product" Field="@nameof(Product.Price)" Caption="Price">
+                                    <DisplayTemplate Context="product">
+                                        @product.GetFinalPrice()
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                            </DataGrid>
+                        }
+                    </DetailRowTemplate>
+
+                    <DataGridAggregates>
+                        <DataGridAggregate TItem="Order" Field="@nameof( Order.GetOrderTotalPrice)" Aggregate="DataGridAggregateType.Sum">
+                            <DisplayTemplate>
+                                @($"Total Order Price: {context.Value}")
+                            </DisplayTemplate>
+                        </DataGridAggregate>
+
+                        <DataGridAggregate TItem="Order" Field="@nameof( Order.OrderState)" AggregationFunction=@((values,col)=>values?.Count())>
+                            <DisplayTemplate>
+                                @($"Total Products Sold: {context.Value}")
+                            </DisplayTemplate>
+                        </DataGridAggregate>
+                    </DataGridAggregates>
+                    <ButtonRowTemplate>
+                        <Button Background="Background.Success" Disabled="@(selectedOrder is null)" Clicked="ForwardOrder">
+                            <Icon Name="IconName.Forward"></Icon> Advance Order
+                        </Button>
+                        <Button Background="Background.Danger" Disabled="@(selectedOrder is null)" Clicked="CancelOrder">
+                            <Icon Name="IconName.Times"></Icon> Cancel Order
+                        </Button>
+                    </ButtonRowTemplate>
+
+                    <EmptyFilterTemplate>
+                        <Span>
+                            <Icon Name="IconName.InfoCircle" TextColor="TextColor.Info" Margin="Margin.Is2.FromRight" />
+                            No orders were found...
+                        </Span>
+                    </EmptyFilterTemplate>
+                </DataGrid>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
+
+@code {
+    [CascadingParameter] public AppState AppState { get; set; }
+    public List<Customer> CustomerDB { get; set; } = new()
+    {
+            new() { Id = 100, Name = "Safia" },
+            new() { Id = 200, Name = "Dan" },
+            new() { Id = 300, Name = "John" },
+        };
+
+    private Order selectedOrder;
+    private OrderState selectedStateFilter;
+
+    private bool TriggerDetailRow( Order order )
+        => order.OrderId == selectedOrder?.OrderId;
+
+
+    private void CancelOrder()
+        => selectedOrder.SetOrderState( OrderState.Cancelled );
+
+    private void ForwardOrder()
+        => selectedOrder.NextOrderState();
+
+    private void CustomRowStyling( Order order, DataGridRowStyling styling )
+    {
+        switch ( order.OrderState )
+        {
+            case OrderState.Created:
+                break;
+            case OrderState.Confirmed:
+                styling.Background = Background.Primary;
+                break;
+            case OrderState.Processing:
+                styling.Background = Background.Secondary;
+                break;
+            case OrderState.Cancelled:
+                styling.Background = Background.Warning;
+                break;
+            case OrderState.Completed:
+                styling.Background = Background.Success;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+}

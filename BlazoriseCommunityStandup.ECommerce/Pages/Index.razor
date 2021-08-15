@@ -90,9 +90,12 @@
             <CloseButton />
         </ModalHeader>
         <ModalBody>
-            @foreach ( var product in AppState.Products.Where( x => x.Discount >= 10 ) )
+            @if ( AppState?.Products?.Any() ?? false )
             {
-                <ProductCard Product="product"></ProductCard>
+                @foreach ( var product in AppState.Products.Where( x => x.Discount >= 10 ) )
+                {
+                    <ProductCard Product="product"></ProductCard>
+                }
             }
         </ModalBody>
     </ModalContent>

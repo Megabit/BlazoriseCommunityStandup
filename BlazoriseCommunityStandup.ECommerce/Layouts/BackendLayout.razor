@@ -1,14 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@* In a real world app, makes sense to separate back end app from front end app instead *@
+@inherits LayoutComponentBase
 <CascadingValue Value="@AppState">
     <Layout>
         <LayoutHeader Fixed="true">
-            <TopBar />
+            <BackendTopBar />
         </LayoutHeader>
         <LayoutContent Style="margin-top: 72px;">
             @Body
         </LayoutContent>
     </Layout>
-
     <MessageAlert />
     <NotificationAlert />
 </CascadingValue>

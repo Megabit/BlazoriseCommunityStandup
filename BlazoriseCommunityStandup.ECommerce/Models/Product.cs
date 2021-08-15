@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazoriseCommunityStandup.ECommerce.Models
 {
+
     public class Product
     {
         public Product( string name, string imageUrl, int price, int? discount, bool isNew, bool isHot, string description = null )

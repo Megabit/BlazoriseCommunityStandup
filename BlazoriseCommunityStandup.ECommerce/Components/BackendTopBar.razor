@@ -1,0 +1,47 @@
+﻿<Bar Breakpoint="Breakpoint.Desktop" Background="Background.Dark" ThemeContrast="ThemeContrast.Dark">
+    <BarBrand>
+        <BarItem>
+            <BarLink To="">
+                <BarIcon IconName="@customIcon" Display="Display.InlineBlock" />
+                E-Commerce Backend Demo
+            </BarLink>
+        </BarItem>
+    </BarBrand>
+    <BarToggler />
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <BarLink To="e-commerce/backend/orders">Orders</BarLink>
+            </BarItem>
+        </BarStart>
+        <BarEnd>
+            <BarItem>
+                <Button Color="Color.Primary" Margin="Margin.Is2.FromLeft">
+                    <Icon Name="IconName.Bell" />
+                    <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute">2</Badge>
+                </Button>
+            </BarItem>
+            <BarItem>
+                <Dropdown RightAligned>
+                    <DropdownToggle ToggleIconVisible="false" Color="Color.Secondary" Margin="Margin.Is2.FromLeft" Border="Border.RoundedCircle">
+                        <Icon Name="IconName.UserCircle" />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem>
+                            <Icon Name="IconName.Wrench" />
+                            User Settings
+                        </DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem>
+                            <Icon Name="IconName.Lock" TextColor="TextColor.Danger" />
+                            Logout
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </BarItem>
+        </BarEnd>
+    </BarMenu>
+</Bar>
+@code{
+    RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
+}
