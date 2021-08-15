@@ -1,0 +1,179 @@
+﻿@page "/e-commerce/checkout"
+
+<Div Background="Background.Secondary" TextColor="TextColor.White" Padding="Padding.Is4" Margin="Margin.Is3.FromBottom">
+    <DisplayHeading Size="DisplayHeadingSize.Is4">Checkout</DisplayHeading>
+</Div>
+
+<Container Margin="Margin.Is3.FromBottom">
+    <Row>
+        <Column ColumnSize="ColumnSize.Is8.OnDesktop">
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>
+                    <Icon Name="IconName.Pen" /> Contact Info
+                </CardHeader>
+                <CardBody>
+                    <Fields>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Email Address" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Mobile no" />
+                        </Field>
+                    </Fields>
+                </CardBody>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>
+                    <Icon Name="IconName.Truck" /> Shipping Infomation
+                </CardHeader>
+                <CardBody>
+                    <Fields>
+                        <Field ColumnSize="ColumnSize.Is12.OnDesktop">
+                            <TextEdit Placeholder="Name" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Addresss" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Address 2 (Optional)" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <Select TValue="string">
+                                <SelectItem TValue="string">-- Country --</SelectItem>
+                                <SelectItem TValue="string">United States</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <Select TValue="string">
+                                <SelectItem TValue="string">-- State --</SelectItem>
+                                <SelectItem TValue="string">California</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <TextEdit Placeholder="Zip" />
+                        </Field>
+                    </Fields>
+                </CardBody>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>
+                    <Icon Name="IconName.List" /> Billing Infomation
+                    <Check TValue="bool">Same as Shipping Infomation</Check>
+                </CardHeader>
+                <CardBody>
+                    <Fields>
+                        <Field ColumnSize="ColumnSize.Is12.OnDesktop">
+                            <TextEdit Placeholder="Name" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Addresss" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Address 2 (Optional)" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <Select TValue="string">
+                                <SelectItem TValue="string">-- Country --</SelectItem>
+                                <SelectItem TValue="string">United States</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <Select TValue="string">
+                                <SelectItem TValue="string">-- State --</SelectItem>
+                                <SelectItem TValue="string">California</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <TextEdit Placeholder="Zip" />
+                        </Field>
+                    </Fields>
+                </CardBody>
+            </Card>
+            <Card Margin="Margin.Is3.FromBottom" Border="Border.Info">
+                <CardHeader Background="Background.Info">
+                    <Icon Name="IconName.CreditCard" />
+                    Payment Method
+                </CardHeader>
+                <CardBody>
+                    <Fields Margin="Margin.Is3.FromBottom" Border="Border.OnBottom">
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <Check TValue="bool">
+                                Credit card<Image Source="img/e-commerce/cards.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                            </Check>
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <Check TValue="bool">
+                                PayPal<Image Source="img/e-commerce/paypal_64.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                            </Check>
+                        </Field>
+                    </Fields>
+                    <Fields>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Name on card" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                            <TextEdit Placeholder="Card number" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <TextEdit Placeholder="Expiration month" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <TextEdit Placeholder="Expiration year" />
+                        </Field>
+                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                            <TextEdit Placeholder="CVV" />
+                        </Field>
+                    </Fields>
+                </CardBody>
+                <CardFooter Border="Border.Info.OnTop">
+                    <Button Color="Color.Info" Block>
+                        Pay Now <Strong>$162</Strong>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is4.OnDesktop">
+            <Card>
+                <CardHeader>
+                    <Icon Name="IconName.ShoppingCart" />
+                    Cart
+                    <Badge Color="Color.Secondary" Float="Float.Right">3</Badge>
+                </CardHeader>
+                <ListGroup Flush>
+                    <ListGroupItem Flex="Flex.JustifyContent.Between">
+                        <Div>
+                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Product name</Heading>
+                            <Small TextColor="TextColor.Muted">Brief description</Small>
+                        </Div>
+                        <Text TextColor="TextColor.Muted">$150</Text>
+                    </ListGroupItem>
+                    <ListGroupItem Flex="Flex.JustifyContent.Between">
+                        <Div>
+                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Second product</Heading>
+                            <Small TextColor="TextColor.Muted">Brief description</Small>
+                        </Div>
+                        <Text TextColor="TextColor.Muted">$12</Text>
+                    </ListGroupItem>
+                    <ListGroupItem Flex="Flex.JustifyContent.Between">
+                        <Div>
+                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Third item</Heading>
+                            <Small TextColor="TextColor.Muted">Brief description</Small>
+                        </Div>
+                        <Text TextColor="TextColor.Muted">$50</Text>
+                    </ListGroupItem>
+                    <ListGroupItem Flex="Flex.JustifyContent.Between" Background="Background.Light">
+                        <Div TextColor="TextColor.Success">
+                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Promo code</Heading>
+                            <Small TextColor="TextColor.Muted">EXAMPLECODE</Small>
+                        </Div>
+                        <Text TextColor="TextColor.Muted">-$50</Text>
+                    </ListGroupItem>
+                    <ListGroupItem Flex="Flex.JustifyContent.Between">
+                        <Text>Total (USD)</Text>
+                        <Strong>$162</Strong>
+                    </ListGroupItem>
+                </ListGroup>
+            </Card>
+        </Column>
+    </Row>
+</Container>
