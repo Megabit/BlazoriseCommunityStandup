@@ -6,47 +6,76 @@
             <Heading Size="HeadingSize.Is4" TextAlignment="TextAlignment.Center">
                 Sign In
             </Heading>
-            <Form>
-                <Field>
-                    <FieldLabel>
-                        Email
-                    </FieldLabel>
-                    <FieldBody>
-                        <Addons>
-                            <Addon AddonType="AddonType.Start">
-                                <AddonLabel>
-                                    <Icon Name="IconName.Mail" />
-                                </AddonLabel>
-                            </Addon>
-                            <Addon AddonType="AddonType.Body">
-                                <TextEdit Placeholder="Email" />
-                            </Addon>
-                        </Addons>
-                    </FieldBody>
-                </Field>
-                <Field>
-                    <FieldLabel>
-                        Your password
-                    </FieldLabel>
-                    <FieldBody>
-                        <Addons>
-                            <Addon AddonType="AddonType.Start">
-                                <AddonLabel>
-                                    <Icon Name="IconName.ShieldAlt" />
-                                </AddonLabel>
-                            </Addon>
-                            <Addon AddonType="AddonType.Body">
-                                <TextEdit Role="TextRole.Password" />
-                            </Addon>
-                        </Addons>
-                    </FieldBody>
-                </Field>
-                <Button Color="Color.Primary" Block Margin="Margin.Is3.FromBottom">
+            <Validations @ref="@validationsRef" Mode="ValidationMode.Manual" Model="@InputModel">
+                <Validation>
+                    <Field>
+                        <FieldLabel>
+                            Email
+                        </FieldLabel>
+                        <FieldBody>
+                            <Addons>
+                                <Addon AddonType="AddonType.Start">
+                                    <AddonLabel>
+                                        <Icon Name="IconName.Mail" />
+                                    </AddonLabel>
+                                </Addon>
+                                <Addon AddonType="AddonType.Body">
+                                    <TextEdit Placeholder="Email" @bind-Text="@InputModel.Email">
+                                        <Feedback>
+                                            <ValidationError />
+                                        </Feedback>
+                                    </TextEdit>
+                                </Addon>
+                            </Addons>
+                        </FieldBody>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field>
+                        <FieldLabel>
+                            Your password
+                        </FieldLabel>
+                        <FieldBody>
+                            <Addons>
+                                <Addon AddonType="AddonType.Start">
+                                    <AddonLabel>
+                                        <Icon Name="IconName.ShieldAlt" />
+                                    </AddonLabel>
+                                </Addon>
+                                <Addon AddonType="AddonType.Body">
+                                    <TextEdit Role="TextRole.Password" @bind-Text="@InputModel.Password">
+                                        <Feedback>
+                                            <ValidationError />
+                                        </Feedback>
+                                    </TextEdit>
+                                </Addon>
+                            </Addons>
+                        </FieldBody>
+                    </Field>
+                </Validation>
+                <Button Color="Color.Primary" Block Margin="Margin.Is3.FromBottom" Clicked="@OnSubmit">
                     Log In
                 </Button>
                 <Blazorise.Link Float="Float.Left" To="e-commerce/signup">Create your account</Blazorise.Link>
                 <Blazorise.Link Float="Float.Right" To="e-commerce/forgotpassword">Forgot password?</Blazorise.Link>
-            </Form>
+            </Validations>
         </Column>
     </Row>
 </Container>
+@code{
+    Validations validationsRef;
+
+    LoginInputModel InputModel = new LoginInputModel();
+
+    [Inject] NavigationManager NavigationManager { get; set; }
+
+    Task OnSubmit()
+    {
+        if ( validationsRef.ValidateAll() )
+        {
+            //NavigationManager.NavigateTo( "e-commerce" );
+        }
+
+        return Task.CompletedTask;
+    }
+}
