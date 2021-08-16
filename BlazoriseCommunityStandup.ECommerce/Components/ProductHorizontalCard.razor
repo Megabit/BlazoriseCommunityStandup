@@ -8,7 +8,7 @@
         <Column ColumnSize="ColumnSize.Is6">
             <CardBody>
                 <CardSubtitle Margin="Margin.Is2.FromRight" Display="Display.Inline">
-                    <Blazorise.Link To="/e-commerce/product/detail">@Product.Name</Blazorise.Link>
+                    <Blazorise.Link To="@($"e-commerce/product/detail/{Product.Id}")">@Product.Name</Blazorise.Link>
                 </CardSubtitle>
                 @if ( Product.IsNew )
                 {

@@ -34,7 +34,7 @@
                                                 <Image Source="@productOrderItem.Product.ImageUrl" Style="width: 80px;" Text="..." />
                                             </Column>
                                             <Column>
-                                                <Blazorise.Link To="e-commerce/product/detail">
+                                                <Blazorise.Link To="@($"e-commerce/product/detail/{productOrderItem.Product.Id}")">
                                                     @productOrderItem.Product.Name
                                                 </Blazorise.Link>
                                                 <Small TextColor="TextColor.Muted" Display="Display.Block">
@@ -54,7 +54,7 @@
                                         <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
                                             <Icon Name="IconName.Heart" />
                                         </Button>
-                                        <Button Color="Color.Danger" Size="Size.Small" Outline>
+                                        <Button Color="Color.Danger" Size="Size.Small" Outline Clicked="@(()=>RemoveProductFromCart(productOrderItem.Product))">
                                             <Icon Name="IconName.Delete" />
                                         </Button>
                                     </TableRowCell>
@@ -69,7 +69,7 @@
                         Make Purchase
                         <Icon Name="IconName.ChevronRight" />
                     </Button>
-                    <Button Type="ButtonType.Link" To="e-commerce" Color="Color.Secondary">
+                    <Button Type="ButtonType.Link" To="e-commerce/category" Color="Color.Secondary">
                         <Icon Name="IconName.ChevronLeft" />
                         Back to browsing
                     </Button>
@@ -157,6 +157,13 @@
     </Container>
 </Div>
 @code{
+    private Task RemoveProductFromCart( Product product )
+    {
+        AppState.CustomerCart.RemoveProduct( product );
+
+        return Task.CompletedTask;
+    }
+
     Validations couponValidationsRef;
 
     private Cart Cart => AppState?.CustomerCart;

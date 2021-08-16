@@ -18,7 +18,7 @@
     }
     <CardBody>
         <CardSubtitle Margin="Margin.Is2.FromBottom">
-            <Blazorise.Link To="/e-commerce/product/detail">@Product.Name</Blazorise.Link>
+            <Blazorise.Link To="@($"e-commerce/product/detail/{Product.Id}")">@Product.Name</Blazorise.Link>
         </CardSubtitle>
         <Div Margin="Margin.Is2.OnY">
             <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>

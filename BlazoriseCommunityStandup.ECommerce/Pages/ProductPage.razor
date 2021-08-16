@@ -1,22 +1,26 @@
 ﻿@page "/e-commerce/product/detail"
+@page "/e-commerce/product/detail/{ProductId:int}"
 
 <Container Fluid Margin="Margin.Is3.FromTop">
     <Row>
         <Column ColumnSize="ColumnSize.Is8.OnDesktop">
             <Row Margin="Margin.Is3.FromBottom">
                 <Column ColumnSize="ColumnSize.Is5.OnDesktop" TextAlignment="TextAlignment.Center">
-                    <Image Source="@Product.ImageUrl" Fluid Margin="Margin.Is3.FromBottom" Text="" />
-                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
-                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
-                    <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                    @if ( Product != null )
+                    {
+                        <Image Source="@Product.ImageUrl" Fluid Margin="Margin.Is3.FromBottom" Text="" />
+                        <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                        <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                        <Image Source="@Product.ImageUrl" Margin="Margin.Is2.FromRight" Border="Border.Secondary" Text="..." Style="width: 75px;" />
+                    }
                 </Column>
                 <Column ColumnSize="ColumnSize.Is7.OnDesktop">
-                    <Heading Size="HeadingSize.Is1" Display="Display.Inline" Margin="Margin.Is2.FromRight">@Product.Name</Heading>
-                    @if ( Product.IsNew )
+                    <Heading Size="HeadingSize.Is1" Display="Display.Inline" Margin="Margin.Is2.FromRight">@Product?.Name</Heading>
+                    @if ( Product?.IsNew == true )
                     {
                         <Badge Color="Color.Success" Margin="Margin.Is2.FromRight">New</Badge>
                     }
-                    @if ( Product.IsHot )
+                    @if ( Product?.IsHot == true )
                     {
                         <Badge Color="Color.Danger" Margin="Margin.Is2.FromRight">Hot</Badge>
                     }
@@ -63,12 +67,12 @@
                     <Div Margin="Margin.Is3.FromBottom">
                         <Text TextWeight="TextWeight.Bold" Margin="Margin.Is2.FromRight">$@FinalPrice</Text>
                         <Small TextColor="TextColor.Muted" Margin="Margin.Is2.FromRight">
-                            <del>$@Product.Price</del>
+                            <del>$@Product?.Price</del>
                         </Small>
-                        @if ( Product.Discount != null )
+                        @if ( Product?.Discount != null )
                         {
                             <Span Background="Background.Warning" Border="Border.Rounded" Margin="Margin.Is2.FromRight" Padding="Padding.Is1">
-                                @($"-{Product.Discount}%")
+                                @($"-{Product?.Discount}%")
                             </Span>
                         }
                     </Div>
@@ -76,22 +80,22 @@
                         <Div Display="Display.Inline" Float="Float.Left" Margin="Margin.Is2.FromRight">
                             <NumericAddon />
                         </Div>
-                        <Button Color="Color.Primary" Size="Size.Small" Margin="Margin.Is2.FromRight">
+                        <Button Color="Color.Primary" Size="Size.Small" Margin="Margin.Is2.FromRight" Clicked="@AddToCart">
                             <Icon Name="IconName.CartPlus" />
                             Add to cart
                         </Button>
-                        <Button Color="Color.Warning" Size="Size.Small" Margin="Margin.Is2.FromRight">
+                        <Button Color="Color.Warning" Size="Size.Small" Margin="Margin.Is2.FromRight" Clicked="@BuyNow">
                             <Icon Name="IconName.ShoppingCart" />
                             Buy now
                         </Button>
-                        <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
+                        <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight" Clicked="@AddToWishList">
                             <Icon Name="IconName.Heart" />
                         </Button>
                     </Div>
                     <Div>
                         <Paragraph TextWeight="TextWeight.Bold" Margin="Margin.Is2.FromBottom">Product Highlights</Paragraph>
                         <Paragraph>
-                            @Product.Description
+                            @Product?.Description
                         </Paragraph>
                     </Div>
                 </Column>
@@ -112,10 +116,3 @@
         </Column>
     </Row>
 </Container>
-@code{
-    private int FinalPrice => Product.GetFinalPrice();
-
-    private Product Product => AppState.Products[0];
-
-    [CascadingParameter] private AppState AppState { get; set; }
-}

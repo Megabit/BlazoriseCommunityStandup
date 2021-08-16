@@ -4,7 +4,7 @@
     </Column>
     <Column ColumnSize="ColumnSize.Is5.OnDesktop">
         <Heading Size="HeadingSize.Is6" Margin="Margin.Is1.FromBottom" TextTransform="TextTransform.Capitalize">
-            <Blazorise.Link To="e-commerce/product/detail">@Product.Name</Blazorise.Link>
+            <Blazorise.Link To="@($"e-commerce/product/detail/{Product.Id}")">@Product.Name</Blazorise.Link>
         </Heading>
         <Rating SelectedValue="4" MaxValue="4" ReadOnly Margin="Margin.Is2.FromBottom" Display="Display.Block" />
         <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>

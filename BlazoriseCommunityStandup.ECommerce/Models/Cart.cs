@@ -24,6 +24,13 @@ namespace BlazoriseCommunityStandup.ECommerce.Models
             CartChanged?.Invoke( this, EventArgs.Empty );
         }
 
+        public void RemoveProduct( Product product )
+        {
+            orderItems.RemoveAll( x => x.Product.Id == product.Id );
+
+            CartChanged?.Invoke( this, EventArgs.Empty );
+        }
+
         public decimal GetCartTotalPrice()
             => orderItems?.Sum( x => x.GetOrderItemPrice() ) ?? 0;
 
