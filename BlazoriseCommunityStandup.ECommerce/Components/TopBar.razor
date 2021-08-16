@@ -2,7 +2,7 @@
 <Bar Breakpoint="Breakpoint.Desktop" Background="Background.Dark" ThemeContrast="ThemeContrast.Dark">
     <BarBrand>
         <BarItem>
-            <BarLink To="">
+            <BarLink To="e-commerce">
                 <BarIcon IconName="@customIcon" Display="Display.InlineBlock" />
                 E-Commerce Demo
             </BarLink>
@@ -59,7 +59,7 @@
                         </Autocomplete>
                     </Addon>
                     <Addon AddonType="AddonType.End">
-                        <Button Color="Color.Primary">
+                        <Button Color="Color.Primary" Clicked="@(()=>NavigationManager.NavigateTo("e-commerce/category"))">
                             <Icon Name="IconName.Search" />
                         </Button>
                     </Addon>
@@ -94,7 +94,7 @@
                             Support
                         </DropdownItem>
                         <DropdownDivider />
-                        <DropdownItem>
+                        <DropdownItem Clicked="@(()=>NavigationManager.NavigateTo("e-commerce/signin"))">
                             <Icon Name="IconName.Lock" TextColor="TextColor.Danger" />
                             Logout
                         </DropdownItem>

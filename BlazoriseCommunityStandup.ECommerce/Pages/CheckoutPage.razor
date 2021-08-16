@@ -7,7 +7,7 @@
 <Container Margin="Margin.Is3.FromBottom">
     <Row>
         <Column ColumnSize="ColumnSize.Is8.OnDesktop">
-            <Validations @ref="validationsRef">
+            <Validations @ref="validationsRef" ValidateOnLoad="false">
                 <Card Margin="Margin.Is3.FromBottom">
                     <CardHeader>
                         <Icon Name="IconName.Pen" /> Contact Info
@@ -41,12 +41,16 @@
                     </CardHeader>
                     <CardBody>
                         <Fields>
-                            <Field ColumnSize="ColumnSize.Is12.OnDesktop">
-                                <TextEdit Placeholder="Name" @bind-Text="newOrder.ShippingName" />
-                            </Field>
-                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                                <TextEdit Placeholder="Addresss" @bind-Text="newOrder.ShippingAddress" />
-                            </Field>
+                            <Validation Validator="@ValidationRule.IsNotEmpty">
+                                <Field ColumnSize="ColumnSize.Is12.OnDesktop">
+                                    <TextEdit Placeholder="Name" @bind-Text="newOrder.ShippingName" />
+                                </Field>
+                            </Validation>
+                            <Validation Validator="@ValidationRule.IsNotEmpty">
+                                <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                    <TextEdit Placeholder="Addresss" @bind-Text="newOrder.ShippingAddress" />
+                                </Field>
+                            </Validation>
                             <Field ColumnSize="ColumnSize.Is6.OnDesktop">
                                 <TextEdit Placeholder="Address 2 (Optional)" @bind-Text="newOrder.ShippingAddress2" />
                             </Field>

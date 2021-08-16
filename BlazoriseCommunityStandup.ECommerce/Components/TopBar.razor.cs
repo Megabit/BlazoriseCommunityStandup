@@ -24,6 +24,8 @@ namespace BlazoriseCommunityStandup.ECommerce.Components
             InvokeAsync( StateHasChanged );
         }
 
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
         [CascadingParameter] public AppState AppState { get; set; }
     }
 }
