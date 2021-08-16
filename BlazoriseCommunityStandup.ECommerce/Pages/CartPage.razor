@@ -8,64 +8,74 @@
     <Row>
         <Column ColumnSize="ColumnSize.Is9.OnDesktop">
             <Card>
-                <Table Responsive Borderless>
-                    <TableHeader TextColor="TextColor.Muted">
-                        <TableRow TextTransform="TextTransform.Uppercase">
-                            <TableHeaderCell>Product</TableHeaderCell>
-                            <TableHeaderCell Style="width: 120px;">Quantity</TableHeaderCell>
-                            <TableHeaderCell Style="width: 150px;">Price</TableHeaderCell>
-                            <TableHeaderCell Style="width: 130px;" TextAlignment="TextAlignment.Right"></TableHeaderCell>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        @foreach ( var product in Products )
-                        {
-                            <TableRow>
-                                <TableRowCell>
-                                    <Row>
-                                        <Column ColumnSize="ColumnSize.Is3" Display="Display.None.Block.OnDesktop">
-                                            <Image Source="@product.ImageUrl" Style="width: 80px;" Text="..." />
-                                        </Column>
-                                        <Column>
-                                            <Blazorise.Link To="e-commerce/product/detail">
-                                                @product.Name
-                                            </Blazorise.Link>
-                                            <Small TextColor="TextColor.Muted" Display="Display.Block">
-                                                Size: XL, Color: blue, Brand: XYZ
-                                            </Small>
-                                        </Column>
-                                    </Row>
-                                </TableRowCell>
-                                <TableRowCell>
-                                    <NumericAddon />
-                                </TableRowCell>
-                                <TableRowCell>
-                                    <Text>$@product.GetFinalPrice()</Text>
-                                    <Small Display="Display.Block" TextColor="TextColor.Muted">$79.00 each</Small>
-                                </TableRowCell>
-                                <TableRowCell TextAlignment="TextAlignment.Right">
-                                    <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
-                                        <Icon Name="IconName.Heart" />
-                                    </Button>
-                                    <Button Color="Color.Danger" Size="Size.Small" Outline>
-                                        <Icon Name="IconName.Delete" />
-                                    </Button>
-                                </TableRowCell>
+                @if ( IsCartEmpty() )
+                {
+                    <CardBody>Cart is Empty!</CardBody>
+                }
+                else
+                {
+                    <Table Responsive Borderless>
+                        <TableHeader TextColor="TextColor.Muted">
+                            <TableRow TextTransform="TextTransform.Uppercase">
+                                <TableHeaderCell>Product</TableHeaderCell>
+                                <TableHeaderCell Style="width: 120px;">Quantity</TableHeaderCell>
+                                <TableHeaderCell Style="width: 150px;">Price</TableHeaderCell>
+                                <TableHeaderCell Style="width: 130px;" TextAlignment="TextAlignment.Right"></TableHeaderCell>
                             </TableRow>
-                        }
-                    </TableBody>
-                </Table>
+                        </TableHeader>
+                        <TableBody>
+
+                            @foreach ( var productOrderItem in Cart.OrderItems )
+                            {
+                                <TableRow>
+                                    <TableRowCell>
+                                        <Row>
+                                            <Column ColumnSize="ColumnSize.Is3" Display="Display.None.Block.OnDesktop">
+                                                <Image Source="@productOrderItem.Product.ImageUrl" Style="width: 80px;" Text="..." />
+                                            </Column>
+                                            <Column>
+                                                <Blazorise.Link To="e-commerce/product/detail">
+                                                    @productOrderItem.Product.Name
+                                                </Blazorise.Link>
+                                                <Small TextColor="TextColor.Muted" Display="Display.Block">
+                                                    Size: XL, Color: blue, Brand: XYZ
+                                                </Small>
+                                            </Column>
+                                        </Row>
+                                    </TableRowCell>
+                                    <TableRowCell>
+                                        <NumericAddon @bind-Value="productOrderItem.Quantity" />
+                                    </TableRowCell>
+                                    <TableRowCell>
+                                        <Text>$@(productOrderItem.Product.GetFinalPrice() * productOrderItem.Quantity)</Text>
+                                        <Small Display="Display.Block" TextColor="TextColor.Muted">$@productOrderItem.Product.GetFinalPrice() each</Small>
+                                    </TableRowCell>
+                                    <TableRowCell TextAlignment="TextAlignment.Right">
+                                        <Button Color="Color.Secondary" Size="Size.Small" Outline Margin="Margin.Is2.FromRight">
+                                            <Icon Name="IconName.Heart" />
+                                        </Button>
+                                        <Button Color="Color.Danger" Size="Size.Small" Outline>
+                                            <Icon Name="IconName.Delete" />
+                                        </Button>
+                                    </TableRowCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </Table>
+                }
+
                 <CardFooter>
-                    <Button Type="ButtonType.Link" To="e-commerce/checkout" Color="Color.Primary" Float="Float.Right">
+                    <Button Type="ButtonType.Link" To="e-commerce/checkout" Color="Color.Primary" Float="Float.Right" Disabled="IsCartEmpty()">
                         Make Purchase
                         <Icon Name="IconName.ChevronRight" />
                     </Button>
                     <Button Type="ButtonType.Link" To="e-commerce" Color="Color.Secondary">
                         <Icon Name="IconName.ChevronLeft" />
-                        Make Purchase
+                        Back to browsing
                     </Button>
                 </CardFooter>
             </Card>
+
             <Alert Color="Color.Success" Visible Margin="Margin.Is3.FromTop">
                 <AlertDescription Margin="Margin.Is0">
                     <Icon Name="IconName.Truck" />
@@ -102,13 +112,13 @@
                             Total price:
                         </Column>
                         <Column TextAlignment="TextAlignment.Right">
-                            $1,568
+                            $@Cart?.GetCartTotalPrice()
                         </Column>
                         <Column TextWeight="TextWeight.Bold" TextColor="TextColor.Success">
                             Discount:
                         </Column>
                         <Column TextColor="TextColor.Success" TextAlignment="TextAlignment.Right">
-                            -$58
+                            -$@Cart?.GetCartTotalDiscount()
                         </Column>
                         <Column TextWeight="TextWeight.Bold" TextColor="TextColor.Success">
                             Coupon: <Text TextColor="TextColor.Muted">EXAMPLECODE</Text>
@@ -120,7 +130,7 @@
                     <Row>
                         <Column>Total:</Column>
                         <Column TextAlignment="TextAlignment.Right">
-                            <Strong>$1,350</Strong>
+                            <Strong>$@Cart?.GetCartTotalPrice()</Strong>
                         </Column>
                     </Row>
                     <hr>
@@ -149,9 +159,10 @@
 @code{
     Validations couponValidationsRef;
 
-    private IEnumerable<Product> Products => AppState.Products.Take( 2 );
+    private Cart Cart => AppState?.CustomerCart;
 
     [CascadingParameter] private AppState AppState { get; set; }
 
-
+    private bool IsCartEmpty()
+        => !Cart?.OrderItems?.Any() ?? true;
 }

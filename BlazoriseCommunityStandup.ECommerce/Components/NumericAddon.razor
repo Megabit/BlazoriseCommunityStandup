@@ -5,7 +5,7 @@
         </Button>
     </Addon>
     <Addon AddonType="AddonType.Body">
-        <NumericEdit TValue="int" ShowStepButtons="false" />
+        <NumericEdit TValue="int" ShowStepButtons="false" @bind-Value="Value" />
     </Addon>
     <Addon AddonType="AddonType.End">
         <Button Color="Color.Primary">
@@ -13,3 +13,13 @@
         </Button>
     </Addon>
 </Addons>
+
+@code{
+
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+}

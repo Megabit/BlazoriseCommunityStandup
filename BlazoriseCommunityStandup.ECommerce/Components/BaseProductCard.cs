@@ -1,5 +1,7 @@
 ﻿using Blazorise;
 using BlazoriseCommunityStandup.ECommerce.Models;
+using BlazoriseCommunityStandup.ECommerce.States;
+
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -7,9 +9,10 @@ namespace BlazoriseCommunityStandup.ECommerce.Components
 {
     public abstract class BaseProductCard : ComponentBase
     {
-        protected Task AddToCart()
+        protected async Task AddToCart()
         {
-            return NotificationService.Success( $"Added {Product.Name} to your cart!" );
+            AppState.CustomerCart.AddProduct( Product );
+            await NotificationService.Success( $"Added {Product.Name} to your cart!" );
         }
 
         protected Task AddToWishList()
@@ -22,5 +25,6 @@ namespace BlazoriseCommunityStandup.ECommerce.Components
         [Inject] private INotificationService NotificationService { get; set; }
 
         [Parameter] public Product Product { get; set; }
+        [CascadingParameter] public AppState AppState { get; set; }
     }
 }

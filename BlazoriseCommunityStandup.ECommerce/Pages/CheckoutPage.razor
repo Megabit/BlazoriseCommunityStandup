@@ -7,173 +7,229 @@
 <Container Margin="Margin.Is3.FromBottom">
     <Row>
         <Column ColumnSize="ColumnSize.Is8.OnDesktop">
-            <Card Margin="Margin.Is3.FromBottom">
-                <CardHeader>
-                    <Icon Name="IconName.Pen" /> Contact Info
-                </CardHeader>
-                <CardBody>
-                    <Fields>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Email Address" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Mobile no" />
-                        </Field>
-                    </Fields>
-                </CardBody>
-            </Card>
-            <Card Margin="Margin.Is3.FromBottom">
-                <CardHeader>
-                    <Icon Name="IconName.Truck" /> Shipping Infomation
-                </CardHeader>
-                <CardBody>
-                    <Fields>
-                        <Field ColumnSize="ColumnSize.Is12.OnDesktop">
-                            <TextEdit Placeholder="Name" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Addresss" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Address 2 (Optional)" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <Select TValue="string">
-                                <SelectItem TValue="string">-- Country --</SelectItem>
-                                <SelectItem TValue="string">United States</SelectItem>
-                            </Select>
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <Select TValue="string">
-                                <SelectItem TValue="string">-- State --</SelectItem>
-                                <SelectItem TValue="string">California</SelectItem>
-                            </Select>
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <TextEdit Placeholder="Zip" />
-                        </Field>
-                    </Fields>
-                </CardBody>
-            </Card>
-            <Card Margin="Margin.Is3.FromBottom">
-                <CardHeader>
-                    <Icon Name="IconName.List" /> Billing Infomation
-                    <Check TValue="bool">Same as Shipping Infomation</Check>
-                </CardHeader>
-                <CardBody>
-                    <Fields>
-                        <Field ColumnSize="ColumnSize.Is12.OnDesktop">
-                            <TextEdit Placeholder="Name" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Addresss" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Address 2 (Optional)" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <Select TValue="string">
-                                <SelectItem TValue="string">-- Country --</SelectItem>
-                                <SelectItem TValue="string">United States</SelectItem>
-                            </Select>
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <Select TValue="string">
-                                <SelectItem TValue="string">-- State --</SelectItem>
-                                <SelectItem TValue="string">California</SelectItem>
-                            </Select>
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <TextEdit Placeholder="Zip" />
-                        </Field>
-                    </Fields>
-                </CardBody>
-            </Card>
-            <Card Margin="Margin.Is3.FromBottom" Border="Border.Info">
-                <CardHeader Background="Background.Info">
-                    <Icon Name="IconName.CreditCard" />
-                    Payment Method
-                </CardHeader>
-                <CardBody>
-                    <Fields Margin="Margin.Is3.FromBottom" Border="Border.OnBottom">
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <Check TValue="bool">
-                                Credit card<Image Source="img/e-commerce/cards.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
-                            </Check>
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <Check TValue="bool">
-                                PayPal<Image Source="img/e-commerce/paypal_64.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
-                            </Check>
-                        </Field>
-                    </Fields>
-                    <Fields>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Name on card" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                            <TextEdit Placeholder="Card number" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <TextEdit Placeholder="Expiration month" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <TextEdit Placeholder="Expiration year" />
-                        </Field>
-                        <Field ColumnSize="ColumnSize.Is4.OnDesktop">
-                            <TextEdit Placeholder="CVV" />
-                        </Field>
-                    </Fields>
-                </CardBody>
-                <CardFooter Border="Border.Info.OnTop">
-                    <Button Color="Color.Info" Block>
-                        Pay Now <Strong>$162</Strong>
-                    </Button>
-                </CardFooter>
-            </Card>
+            <Validations @ref="validationsRef">
+                <Card Margin="Margin.Is3.FromBottom">
+                    <CardHeader>
+                        <Icon Name="IconName.Pen" /> Contact Info
+                    </CardHeader>
+                    <CardBody>
+                        <Fields>
+                            <Validation Validator="@ValidationRule.IsEmail">
+                                <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                    <TextEdit Placeholder="Email Address" @bind-Text="newOrder.EmailAddress">
+                                        <ValidationNone>Please provide us your email address, you will be emailed with the order details.</ValidationNone>
+                                        <ValidationSuccess>Email address is valid</ValidationSuccess>
+                                        <ValidationError>Invalid email address</ValidationError>
+                                    </TextEdit>
+                                </Field>
+                            </Validation>
+                            <Validation UsePattern="true">
+                                <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                    <TextEdit Pattern="^(\+\d{1,3}[- ]?)?\d{10}$" Placeholder="Mobile no" @bind-Text="newOrder.MobileNumber">
+                                        <ValidationNone>Format: +3519112345623</ValidationNone>
+                                        <ValidationSuccess>Mobile no is valid</ValidationSuccess>
+                                        <ValidationError>Invalid format, please use +3519112345623</ValidationError>
+                                    </TextEdit>
+                                </Field>
+                            </Validation>
+                        </Fields>
+                    </CardBody>
+                </Card>
+                <Card Margin="Margin.Is3.FromBottom">
+                    <CardHeader>
+                        <Icon Name="IconName.Truck" /> Shipping Infomation
+                    </CardHeader>
+                    <CardBody>
+                        <Fields>
+                            <Field ColumnSize="ColumnSize.Is12.OnDesktop">
+                                <TextEdit Placeholder="Name" @bind-Text="newOrder.ShippingName" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <TextEdit Placeholder="Addresss" @bind-Text="newOrder.ShippingAddress" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <TextEdit Placeholder="Address 2 (Optional)" @bind-Text="newOrder.ShippingAddress2" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <Select TValue="string" @bind-SelectedValue="newOrder.ShippingCountry">
+                                    <SelectItem TValue="string">-- Country --</SelectItem>
+                                    <SelectItem TValue="string">United States</SelectItem>
+                                </Select>
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <Select TValue="string" @bind-SelectedValue="newOrder.ShippingState">
+                                    <SelectItem TValue="string">-- State --</SelectItem>
+                                    <SelectItem TValue="string">California</SelectItem>
+                                </Select>
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <TextEdit Placeholder="Zip" @bind-Text="newOrder.ShippingZip" />
+                            </Field>
+                        </Fields>
+                    </CardBody>
+                </Card>
+                <Card Margin="Margin.Is3.FromBottom">
+                    <CardHeader>
+                        <Icon Name="IconName.List" /> Billing Infomation
+                        <Check TValue="bool" @bind-Checked="billingSameAsShipping">Same as Shipping Infomation</Check>
+                    </CardHeader>
+                    @if ( !billingSameAsShipping )
+                    {
+                        <CardBody>
+                            <Fields>
+                                <Field ColumnSize="ColumnSize.Is12.OnDesktop">
+                                    <TextEdit Placeholder="Name" @bind-Text="newOrder.BillingName" />
+                                </Field>
+                                <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                    <TextEdit Placeholder="Addresss" @bind-Text="newOrder.BillingAddress" />
+                                </Field>
+                                <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                    <TextEdit Placeholder="Address 2 (Optional)" @bind-Text="newOrder.BillingAddress2" />
+                                </Field>
+                                <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                    <Select TValue="string" @bind-Text="newOrder.BillingCountry">
+                                        <SelectItem TValue="string">-- Country --</SelectItem>
+                                        <SelectItem TValue="string">United States</SelectItem>
+                                    </Select>
+                                </Field>
+                                <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                    <Select TValue="string" @bind-Text="newOrder.BillingState">
+                                        <SelectItem TValue="string">-- State --</SelectItem>
+                                        <SelectItem TValue="string">California</SelectItem>
+                                    </Select>
+                                </Field>
+                                <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                    <TextEdit Placeholder="Zip" @bind-Text="newOrder.BillingZip" />
+                                </Field>
+                            </Fields>
+                        </CardBody>
+                    }
+                </Card>
+                <Card Margin="Margin.Is3.FromBottom" Border="Border.Info">
+                    <CardHeader Background="Background.Info">
+                        <Icon Name="IconName.CreditCard" />
+                        Payment Method
+                    </CardHeader>
+                    <CardBody>
+                        <Fields Margin="Margin.Is3.FromBottom" Border="Border.OnBottom">
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <Check TValue="bool">
+                                    Credit card<Image Source="img/e-commerce/cards.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                                </Check>
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <Check TValue="bool">
+                                    PayPal<Image Source="img/e-commerce/paypal_64.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                                </Check>
+                            </Field>
+                        </Fields>
+                        <Fields>
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <TextEdit Placeholder="Name on card" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
+                                <TextEdit Placeholder="Card number" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <TextEdit Placeholder="Expiration month" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <TextEdit Placeholder="Expiration year" />
+                            </Field>
+                            <Field ColumnSize="ColumnSize.Is4.OnDesktop">
+                                <TextEdit Placeholder="CVV" />
+                            </Field>
+                        </Fields>
+                    </CardBody>
+                    <CardFooter Border="Border.Info.OnTop">
+                        <Button Color="Color.Info" Block Clicked="CreateOrder">
+                            Pay Now <Strong>$@Cart.GetCartTotalPrice()</Strong>
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </Validations>
         </Column>
         <Column ColumnSize="ColumnSize.Is4.OnDesktop">
             <Card>
                 <CardHeader>
                     <Icon Name="IconName.ShoppingCart" />
                     Cart
-                    <Badge Color="Color.Secondary" Float="Float.Right">3</Badge>
+                    <Badge Color="Color.Secondary" Float="Float.Right">@Cart.OrderItems.Count()</Badge>
                 </CardHeader>
                 <ListGroup Flush>
-                    <ListGroupItem Flex="Flex.JustifyContent.Between">
-                        <Div>
-                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Product name</Heading>
-                            <Small TextColor="TextColor.Muted">Brief description</Small>
-                        </Div>
-                        <Text TextColor="TextColor.Muted">$150</Text>
-                    </ListGroupItem>
-                    <ListGroupItem Flex="Flex.JustifyContent.Between">
-                        <Div>
-                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Second product</Heading>
-                            <Small TextColor="TextColor.Muted">Brief description</Small>
-                        </Div>
-                        <Text TextColor="TextColor.Muted">$12</Text>
-                    </ListGroupItem>
-                    <ListGroupItem Flex="Flex.JustifyContent.Between">
-                        <Div>
-                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Third item</Heading>
-                            <Small TextColor="TextColor.Muted">Brief description</Small>
-                        </Div>
-                        <Text TextColor="TextColor.Muted">$50</Text>
-                    </ListGroupItem>
-                    <ListGroupItem Flex="Flex.JustifyContent.Between" Background="Background.Light">
-                        <Div TextColor="TextColor.Success">
-                            <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">Promo code</Heading>
-                            <Small TextColor="TextColor.Muted">EXAMPLECODE</Small>
-                        </Div>
-                        <Text TextColor="TextColor.Muted">-$50</Text>
-                    </ListGroupItem>
+                    @foreach ( var productOrderItem in Cart.OrderItems )
+                    {
+                        <ListGroupItem Flex="Flex.JustifyContent.Between">
+                            <Div>
+                                <Heading Size="HeadingSize.Is6" Margin="Margin.Is0.OnY">@productOrderItem.Product.Name</Heading>
+                                <Small TextColor="TextColor.Muted">x @productOrderItem.Quantity</Small>
+                                <Small TextColor="TextColor.Muted">Brief description</Small>
+                            </Div>
+                            <Text TextColor="TextColor.Muted">$@productOrderItem.GetOrderItemPrice()</Text>
+                        </ListGroupItem>
+                    }
                     <ListGroupItem Flex="Flex.JustifyContent.Between">
                         <Text>Total (USD)</Text>
-                        <Strong>$162</Strong>
+                        <Strong>$@Cart.GetCartTotalPrice()</Strong>
                     </ListGroupItem>
                 </ListGroup>
             </Card>
         </Column>
     </Row>
 </Container>
+
+<Modal @ref="modalSuccessRef">
+    <ModalContent Size="ModalSize.Large" Centered="true">
+        <ModalHeader>
+            Order Success!
+        </ModalHeader>
+        <ModalBody>
+            <Alert Visible="true" Color="Color.Success">
+                <AlertMessage><Heading Size="HeadingSize.Is3" TextAlignment="TextAlignment.Center"> Your order has been placed, you will receive an email with further details! </Heading></AlertMessage>
+                <AlertDescription>
+                    <Row>
+                        <Column TextAlignment="TextAlignment.Center">
+                            <Blazorise.Icons.FontAwesome.Icon Name="IconName.CheckCircle" IconSize="IconSize.x4" TextColor="TextColor.Success"></Blazorise.Icons.FontAwesome.Icon>
+                        </Column>
+                    </Row>
+                </AlertDescription>
+            </Alert>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideSuccessModal">Close</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+@code{
+    [CascadingParameter]
+    public AppState AppState { get; set; }
+
+    private Validations validationsRef;
+    private Modal modalSuccessRef;
+    private Cart Cart => AppState?.CustomerCart;
+    private Order newOrder = new( 100 );
+    private bool billingSameAsShipping;
+
+    private void CreateOrder()
+    {
+        if ( validationsRef.ValidateAll() )
+        {
+            //Convert Cart into Order and send it to backend
+            if ( billingSameAsShipping )
+                newOrder.SetBillingSameAsShipping();
+
+            ShowSuccessModal();
+        }
+    }
+
+    private void ShowSuccessModal()
+    {
+        modalSuccessRef.Show();
+    }
+
+    private void HideSuccessModal()
+    {
+        modalSuccessRef.Hide();
+        //Redirect to Order Details or Index Page.
+    }
+}

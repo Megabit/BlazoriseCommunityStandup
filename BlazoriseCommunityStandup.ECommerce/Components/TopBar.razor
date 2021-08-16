@@ -66,7 +66,7 @@
             <BarItem>
                 <Button Type="ButtonType.Link" To="e-commerce/cart" Color="Color.Primary" Margin="Margin.Is2.FromLeft">
                     <Icon Name="IconName.ShoppingCart" />
-                    <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute">2</Badge>
+                    <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute">@AppState.CustomerCart.OrderItems?.Count()</Badge>
                 </Button>
             </BarItem>
             <BarItem>

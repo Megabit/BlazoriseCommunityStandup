@@ -52,15 +52,15 @@
 
                     <DetailRowTemplate>
                         @{
-                            <DataGrid TItem="Product"
-                                      Data="context.Products"
+                            <DataGrid TItem="ProductOrderItem"
+                                      Data="context.OrderItems"
                                       Sortable="false"
                                       ShowCaptions="true">
-                                <DataGridColumn TItem="Product" Field="@nameof(Product.Id)" Caption="Id" />
-                                <DataGridColumn TItem="Product" Field="@nameof(Product.Name)" Caption="Name" />
-                                <DataGridColumn TItem="Product" Field="@nameof(Product.Price)" Caption="Price">
+                                <DataGridColumn TItem="ProductOrderItem" Field="Product.Id" Caption="Id" />
+                                <DataGridColumn TItem="ProductOrderItem" Field="Product.Name" Caption="Name" />
+                                <DataGridColumn TItem="ProductOrderItem" Field="Product.Price" Caption="Price">
                                     <DisplayTemplate Context="product">
-                                        @product.GetFinalPrice()
+                                        @product.GetOrderItemPrice()
                                     </DisplayTemplate>
                                 </DataGridColumn>
                             </DataGrid>
