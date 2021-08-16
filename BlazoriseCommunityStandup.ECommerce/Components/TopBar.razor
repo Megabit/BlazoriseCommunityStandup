@@ -53,7 +53,8 @@
                                       TItem="Product"
                                       TValue="string"
                                       ValueField="(x) => x.Name"
-                                      TextField='@((x) => $"{x.Name} - ${x.GetFinalPrice()}")'>
+                                      TextField='@((x) => $"{x.Name} - ${x.GetFinalPrice()}")'
+                                      Style="height: calc(1.5em + .75rem + 2px);">
                             <NotFoundContent>No Products found...</NotFoundContent>
                         </Autocomplete>
                     </Addon>
