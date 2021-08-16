@@ -112,15 +112,15 @@
                     </CardHeader>
                     <CardBody>
                         <Fields Margin="Margin.Is3.FromBottom" Border="Border.OnBottom">
-                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                                <Check TValue="bool">
-                                    Credit card<Image Source="img/e-commerce/cards.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
-                                </Check>
-                            </Field>
-                            <Field ColumnSize="ColumnSize.Is6.OnDesktop">
-                                <Check TValue="bool">
-                                    PayPal<Image Source="img/e-commerce/paypal_64.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
-                                </Check>
+                            <Field>
+                                <RadioGroup TValue="OrderPaymentMethod" Name="payment-method" Orientation="Orientation.Horizontal" @bind-CheckedValue="@newOrder.PaymentMethod">
+                                    <Radio TValue="OrderPaymentMethod" Value="OrderPaymentMethod.CreditCard">
+                                        Credit card<Image Source="img/e-commerce/cards.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                                    </Radio>
+                                    <Radio TValue="OrderPaymentMethod" Value="OrderPaymentMethod.PayPal">
+                                        PayPal<Image Source="img/e-commerce/paypal_64.webp" Text="..." Margin="Margin.Is3.FromLeft" Style="height: 26px;" />
+                                    </Radio>
+                                </RadioGroup>
                             </Field>
                         </Fields>
                         <Fields>

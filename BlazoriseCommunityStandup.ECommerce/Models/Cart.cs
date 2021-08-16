@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BlazoriseCommunityStandup.ECommerce.Models
 {
     public class Cart
     {
+        public event EventHandler CartChanged;
+
         public int CustomerId { get; }
 
         private List<ProductOrderItem> orderItems = new();
@@ -17,6 +20,8 @@ namespace BlazoriseCommunityStandup.ECommerce.Models
                 existingProductOrderItem.IncreaseQuantity();
             else
                 orderItems.Add( new( product ) );
+
+            CartChanged?.Invoke( this, EventArgs.Empty );
         }
 
         public decimal GetCartTotalPrice()

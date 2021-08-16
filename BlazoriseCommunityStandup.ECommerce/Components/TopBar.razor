@@ -1,4 +1,5 @@
-﻿<Bar Breakpoint="Breakpoint.Desktop" Background="Background.Dark" ThemeContrast="ThemeContrast.Dark">
+﻿@implements IDisposable
+<Bar Breakpoint="Breakpoint.Desktop" Background="Background.Dark" ThemeContrast="ThemeContrast.Dark">
     <BarBrand>
         <BarItem>
             <BarLink To="">
@@ -66,7 +67,10 @@
             <BarItem>
                 <Button Type="ButtonType.Link" To="e-commerce/cart" Color="Color.Primary" Margin="Margin.Is2.FromLeft">
                     <Icon Name="IconName.ShoppingCart" />
-                    <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute">@AppState.CustomerCart.OrderItems?.Count()</Badge>
+                    @if ( AppState.CustomerCart.OrderItems.Any() )
+                    {
+                        <Badge Color="Color.Danger" Border="Border.RoundedCircle" Class="position-absolute">@AppState.CustomerCart.OrderItems?.Count()</Badge>
+                    }
                 </Button>
             </BarItem>
             <BarItem>
@@ -100,9 +104,5 @@
     </BarMenu>
 </Bar>
 @code{
-    [CascadingParameter]
-    public AppState AppState { get; set; }
-    private bool uiElementsVisible = true;
-
     RenderFragment customIcon =@<img src="/brand-logo.png" style="width:32px; height: 32px" />;
 }
