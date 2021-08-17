@@ -18,7 +18,7 @@
         <Field>
             <FieldLabel>Email</FieldLabel>
             <FieldBody>
-                <TextEdit Placeholder="Email..." @bind-Text="example.Email">
+                <TextEdit Role="TextRole.Email" Placeholder="Email..." @bind-Text="example.Email">
                 </TextEdit>
             </FieldBody>
         </Field>
@@ -26,9 +26,9 @@
 
     <Validation>
         <Field>
-            <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
+            <FieldLabel></FieldLabel>
             <FieldBody>
-                <Check @bind-Checked="example.AcceptedTerms"></Check>
+                <Check @bind-Checked="example.AcceptedTerms">I Accept the Terms and Conditions</Check>
             </FieldBody>
         </Field>
     </Validation>

@@ -10,20 +10,66 @@
     <Column>
         <Card>
             <CardHeader>
-                Buttons
+                Contextual  Buttons
             </CardHeader>
             <CardBody>
                 <Button Color="Color.Primary">Primary</Button>
                 <Button Color="Color.Secondary">Secondary</Button>
                 <Button Color="Color.Success">Success</Button>
                 <Button Color="Color.Danger">Danger</Button>
+                <Button Color="Color.Warning">Warning</Button>
+                <Button Color="Color.Info">Info</Button>
+                <Button Color="Color.Light">Light</Button>
+                <Button Color="Color.Dark">Dark</Button>
+            </CardBody>
+        </Card>
+        <Card>
+            <CardHeader>
+                Date & Time pickers
+            </CardHeader>
+            <CardBody>
+                <Field>
+                    <FieldLabel>
+                        Date picker
+                    </FieldLabel>
+                    <FieldBody>
+                        <DatePicker TValue="DateTime?" ReadOnly="@isReadonly" Disabled="@isDisabled" />
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel>
+                        Time picker
+                    </FieldLabel>
+                    <FieldBody>
+                        <TimePicker TValue="TimeSpan?" ReadOnly="@isReadonly" Disabled="@isDisabled" />
+                    </FieldBody>
+                </Field>
             </CardBody>
         </Card>
     </Column>
     <Column>
         <Card>
             <CardHeader>
-                Inputs
+                Options
+            </CardHeader>
+            <CardBody>
+                <Field>
+                    <FieldLabel></FieldLabel>
+                    <FieldBody>
+                        <Switch @bind-Checked="@isReadonly">Readonly</Switch>
+                    </FieldBody>
+                </Field>
+                <Field>
+                    <FieldLabel></FieldLabel>
+                    <FieldBody>
+                        <Switch @bind-Checked="@isDisabled">Disabled</Switch>
+                    </FieldBody>
+                </Field>
+            </CardBody>
+        </Card>
+        <Card>
+            <CardHeader>
+                Basic inputs
             </CardHeader>
             <CardBody>
                 <Field>
@@ -31,7 +77,7 @@
                         Basic text
                     </FieldLabel>
                     <FieldBody>
-                        <TextEdit />
+                        <TextEdit @bind-Text="@textValue" ReadOnly="@isReadonly" Disabled="@isDisabled" />
                     </FieldBody>
                 </Field>
                 <Field>
@@ -39,7 +85,7 @@
                         Numeric
                     </FieldLabel>
                     <FieldBody>
-                        <NumericEdit TValue="decimal?" />
+                        <NumericEdit @bind-Value="@numericValue" ReadOnly="@isReadonly" Disabled="@isDisabled" />
                     </FieldBody>
                 </Field>
                 <Field>
@@ -47,7 +93,7 @@
                         Date
                     </FieldLabel>
                     <FieldBody>
-                        <DateEdit TValue="DateTime?" />
+                        <DateEdit @bind-Date="@dateValue" ReadOnly="@isReadonly" Disabled="@isDisabled" />
                     </FieldBody>
                 </Field>
                 <Field>
@@ -55,10 +101,19 @@
                         Time
                     </FieldLabel>
                     <FieldBody>
-                        <TimeEdit TValue="TimeSpan?" />
+                        <TimeEdit @bind-Time="@timeValue" ReadOnly="@isReadonly" Disabled="@isDisabled" />
                     </FieldBody>
                 </Field>
             </CardBody>
         </Card>
     </Column>
 </Row>
+@code{
+    bool isReadonly;
+    bool isDisabled;
+
+    string textValue = "Blazorise Community Standup";
+    decimal? numericValue = 17.8m;
+    DateTime? dateValue = new DateTime( 2021, 8, 17 );
+    TimeSpan timeValue = new TimeSpan( 10, 0, 0 );
+}

@@ -56,7 +56,7 @@
                         <Field>
                             <FieldLabel>Email</FieldLabel>
                             <FieldBody>
-                                <TextEdit Placeholder="Email..." @bind-Text="newClient.Email">
+                                <TextEdit Role="TextRole.Email" Placeholder="Email..." @bind-Text="newClient.Email">
                                     <Feedback>
                                         <ValidationError>Please provide a valid email.</ValidationError>
                                     </Feedback>
@@ -84,9 +84,9 @@
 
                     <Validation>
                         <Field>
-                            <FieldLabel>I Accept the Terms and Conditions</FieldLabel>
+                            <FieldLabel></FieldLabel>
                             <FieldBody>
-                                <Check @bind-Checked="newClient.AcceptedTermsAndConditions"></Check>
+                                <Check @bind-Checked="newClient.AcceptedTermsAndConditions">I Accept the Terms and Conditions</Check>
                             </FieldBody>
                         </Field>
                     </Validation>
