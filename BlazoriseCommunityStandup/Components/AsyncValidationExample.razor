@@ -23,19 +23,25 @@
 
     private async Task ValidateIdentificationAsync( ValidatorEventArgs e, System.Threading.CancellationToken cancellationToken )
     {
+        // 1. we must cancel previous validations if the user is typing too fast for example
         cancellationToken.ThrowIfCancellationRequested();
+
         validatingIdentification = true;
+
+        // 2. (for demo purposes) make sure the user is aware of validation running in the background
         await InvokeAsync( StateHasChanged );
 
-
-        // some long running task or call to the rest API
+        // 3. some long running task or call to the rest API or backend service
         await Task.Delay( 1500 );
 
+        // 4. set the validation result
         e.Status = Convert.ToInt64( e.Value ) < 100000
             ? ValidationStatus.Error
             : ValidationStatus.Success;
+
         validatingIdentification = false;
+
+        // 5. refresh the ui
         await InvokeAsync( StateHasChanged );
     }
-
 }

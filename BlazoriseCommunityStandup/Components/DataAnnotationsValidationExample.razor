@@ -18,8 +18,7 @@
         <Field>
             <FieldLabel>Email</FieldLabel>
             <FieldBody>
-                <TextEdit Role="TextRole.Email" Placeholder="Email..." @bind-Text="example.Email">
-                </TextEdit>
+                <TextEdit Role="TextRole.Email" Placeholder="Email..." @bind-Text="example.Email" />
             </FieldBody>
         </Field>
     </Validation>
@@ -32,7 +31,7 @@
             </FieldBody>
         </Field>
     </Validation>
-        <Blazorise.ValidationSummary Label="Please correct the following errors:" />
+    <Blazorise.ValidationSummary Label="Please correct the following errors:" />
 </Validations>
 @code {
     private Validations validationsRef;
