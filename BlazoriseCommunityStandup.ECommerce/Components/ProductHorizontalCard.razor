@@ -2,10 +2,10 @@
 
 <Card Margin="Margin.Is3.FromBottom">
     <Row>
-        <Column ColumnSize="ColumnSize.Is3" TextAlignment="TextAlignment.Center">
+        <Column ColumnSize="ColumnSize.Is3.OnDesktop" TextAlignment="TextAlignment.Center">
             <Image Source="@Product.ImageUrl" alt="..." Fluid />
         </Column>
-        <Column ColumnSize="ColumnSize.Is6">
+        <Column ColumnSize="ColumnSize.Is6.OnDesktop">
             <CardBody>
                 <CardSubtitle Margin="Margin.Is2.FromRight" Display="Display.Inline">
                     <Blazorise.Link To="@($"e-commerce/product/detail/{Product.Id}")">@Product.Name</Blazorise.Link>
@@ -24,7 +24,7 @@
                 </Paragraph>
             </CardBody>
         </Column>
-        <Column ColumnSize="ColumnSize.Is3">
+        <Column ColumnSize="ColumnSize.Is3.OnDesktop">
             <CardBody>
                 <Div Margin="Margin.Is2.FromBottom">
                     <Text TextWeight="TextWeight.Bold">$@FinalPrice</Text>

@@ -6,6 +6,7 @@ namespace BlazoriseCommunityStandup.ECommerce.Components
 {
     public partial class TopBar
     {
+        private bool barVisible;
 
         protected override void OnInitialized()
         {

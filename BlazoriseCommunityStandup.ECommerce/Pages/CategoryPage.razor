@@ -20,7 +20,7 @@
 
 <Container Fluid>
     <Row>
-        <Column ColumnSize="ColumnSize.Is3">
+        <Column ColumnSize="ColumnSize.Is3.OnDesktop">
             <Card Margin="Margin.Is3.FromBottom">
                 <CardHeader>CATEGORIES</CardHeader>
                 <ListGroup Flush>
@@ -170,7 +170,7 @@
                 </CardBody>
             </Card>
         </Column>
-        <Column ColumnSize="ColumnSize.Is9">
+        <Column ColumnSize="ColumnSize.Is9.OnDesktop">
             <Row>
                 <Column ColumnSize="ColumnSize.Is8.OnDesktop">
                     <Text TextWeight="TextWeight.Bold">128 results for</Text>
@@ -209,7 +209,7 @@
                 {
                     @foreach ( var product in AppState.Products )
                     {
-                        <Column ColumnSize="ColumnSize.Is4">
+                        <Column ColumnSize="ColumnSize.Is4.OnDesktop">
                             <ProductCard Product="@product" />
                         </Column>
                     }
